@@ -1,0 +1,111 @@
+# All values in this file are adjustable balance defaults.
+eligible-mounts: [HORSE, SKELETON_HORSE, ZOMBIE_HORSE, DONKEY, MULE]
+debug: false
+experience:
+  movement:
+    batch-distance: 100.0
+    exp-per-batch: 10.0
+    max-distance-per-move: 12.0
+    max-multiplier: 1.50
+  mounted-combat:
+    enabled: true
+    exp-per-hit: 0.5
+    cooldown-millis: 2000
+  first-saddle-bonus: 0.05
+  rein-sense-bonus: 0.05
+  good-hands-bonus: 0.01
+  ng-plus-master-bonus: 0.10
+  long-haul-bonus: 0.02
+  iron-journey-bonus: 0.02
+  trailwise:
+    minimum-distance: 1000.0
+    bonus: 0.03
+speed:
+  initial-penalty: -0.05
+  first-saddle-penalty: -0.02
+  fleetfoot: 0.04
+  full-gallop: 0.03
+  cruise-first-threshold-seconds: 30.0
+  cruise-second-threshold-seconds: 60.0
+  cruise-third-threshold-seconds: 120.0
+  cruise-30-seconds: 0.01
+  cruise-60-seconds: 0.01
+  cruise-120-seconds: 0.01
+urge:
+  trigger-material: LEAD
+  response-delay-seconds: 1.0
+  speed-bonus: 0.06
+  duration-seconds: 5.0
+  cooldown-seconds: 35.0
+  breakaway: {speed-bonus: 0.15, duration-seconds: 3.0, cooldown-seconds: 45.0}
+  relentless-pace: {speed-bonus: 0.05, duration-seconds: 15.0, cooldown-seconds: 30.0}
+  response-reduction:
+    good-hands: 0.1
+    seasoned-rider: 0.1
+    fleetfoot: 0.1
+    quick-response: 0.1
+    steady-hands: 0.1
+    calm-rein: 0.1
+    master-of-reins: 0.05
+    windborne: 0.05
+    light-cavalry: 0.05
+    swift-rider: 0.05
+    ng-plus-master: 0.2
+    ng-plus-legend: 0.2
+  minimum-response-seconds: 0.1
+  duration-bonus:
+    second-wind: 0.25
+  cooldown-reduction:
+    quick-response: 2.0
+    trailwise: 2.0
+    ng-plus-legend: 2.0
+fatigue:
+  chance: 0.15
+  minimum-chance: 0.05
+  duration-seconds: 3.0
+  speed-penalty: -0.10
+  chance-reduction: {mutual-trust: 0.01, steady-hands: 0.02, calm-rein: 0.02, master-of-reins: 0.01, ng-plus-master: 0.02, ng-plus-legend: 0.02}
+  duration-reduction: {seasoned-rider: 0.1, mutual-trust: 0.1, second-wind: 0.5, breeders-insight: 0.1, bloodline-study: 0.1, horse-whisperer: 0.1}
+  penalty-reduction: {long-haul: 0.01, steady-pace: 0.01}
+one-as-one:
+  chance-after-no-fatigue: 0.50
+  duration-seconds: 4.0
+  retained-urge-bonus-fraction: 0.25
+combat:
+  cavalier-melee-bonus: 0.06
+  veteran-cavalry-melee-bonus: 0.04
+  charge-rider-damage-reduction: 0.07
+  charge-horse-damage-reduction: 0.10
+  heavy-charge-extra-reduction: 0.02
+  iron-vanguard-charge-extra-reduction: 0.02
+  cavalier-knockback-resistance: 0.05
+  charge-knockback-resistance: 0.10
+  first-impact:
+    minimum-speed: 0.20
+    damage-bonus: 0.05
+    knockback-bonus: 0.15
+    iron-vanguard-extra-knockback: 0.10
+technical:
+  rein-sense-fall-reduction: 0.05
+  good-hands-fall-reduction: 0.03
+  steady-hands-fall-reduction: 0.05
+  sure-landing-fall-reduction: 0.05
+  over-the-fence-horizontal: 0.25
+  over-the-fence-vertical: 0.10
+horsekeeping:
+  training-assistance: {horse-sense: 0.02, bloodline-study: 0.02, horse-whisperer: 0.02, ng-plus-master: 0.05}
+  healing-bonus: {horse-sense: 0.02, breeders-insight: 0.02, horse-whisperer: 0.02}
+handling:
+  enabled: true
+  minimum-horizontal-speed: 0.12
+  turn-angle-degrees: 25.0
+  max-restored-velocity-per-move: 0.025
+  normal-jump-horizontal: {surefooted: 0.02, master-of-reins: 0.01}
+  normal-jump-vertical: {surefooted: 0.01, master-of-reins: 0.01}
+  turn-retention: {ride-the-wind: 0.10, windborne: 0.10, seasoned-rider: 0.03, endless-road: 0.03, fine-control: 0.08, master-of-reins: 0.08, light-cavalry: 0.05, swift-rider: 0.05, one-as-one: 0.10}
+  landing-retention: {over-the-fence: 0.10, surefooted: 0.05, sure-landing: 0.08, master-of-reins: 0.05, one-as-one: 0.10}
+  endless-road-cruise-time-factor: 0.85
+  iron-journey-recovery-bonus: 0.02
+  lightning-start-acceleration-per-move: 0.005
+  urge-end-fade-seconds: 0.5
+  mounted-marksman-aim-correction: 0.10

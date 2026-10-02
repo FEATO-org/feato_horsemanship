@@ -1,0 +1,568 @@
+enabled: true
+order: 15
+display_name: '&6馬術'
+icon: SADDLE
+description: '&fHorsemanship: 騎手の技術を育てる'
+levelbar_title: '&6馬術 Lv %lv_current% &7%exp_current%/%exp_next%'
+levelbar_color: YELLOW
+levelbar_style: SOLID
+stats:
+  ints:
+    first_saddle: 0
+    rein_sense: 0
+    urge: 0
+    fleetfoot: 0
+    long_haul: 0
+    steady_hands: 0
+    cavalier: 0
+    horse_sense: 0
+    good_hands: 0
+    breakaway: 0
+    relentless_pace: 0
+    over_the_fence: 0
+    charge: 0
+    full_gallop: 0
+    trailwise: 0
+    surefooted: 0
+    mounted_marksman: 0
+    breeders_insight: 0
+    seasoned_rider: 0
+    quick_response: 0
+    steady_pace: 0
+    calm_rein: 0
+    veteran_cavalry: 0
+    lightning_start: 0
+    second_wind: 0
+    fine_control: 0
+    heavy_cavalry: 0
+    light_cavalry: 0
+    bloodline_study: 0
+    mutual_trust: 0
+    ride_the_wind: 0
+    iron_journey: 0
+    sure_landing: 0
+    first_impact: 0
+    windborne: 0
+    endless_road: 0
+    master_of_reins: 0
+    iron_vanguard: 0
+    swift_rider: 0
+    horse_whisperer: 0
+    one_as_one: 0
+  floats: {}
+  doubles: {}
+  booleans: {}
+  sets: {}
+starting_perks: {}
+experience:
+  max_level: 100
+  exp_level_curve: '(%level% + 75 * 2^(%level%/7.6)) + 300'
+  daily_limit: -1
+starting_coordinates: "0,0"
+navigable: true
+perks:
+  first_saddle:
+    icon: SADDLE
+    coords: "0,0"
+    name: "&e鞍上の第一歩"
+    description: "&7Lv0 馬術perk"
+    cost: 0
+    required_lv: 0
+    perk_rewards:
+      horsemanship_first_saddle_set: 1
+  rein_sense:
+    icon: LEAD
+    coords: "1,0"
+    name: "&e手綱の心得"
+    description: "&7Lv10 馬術perk"
+    cost: 1
+    required_lv: 10
+    perk_rewards:
+      horsemanship_rein_sense_set: 1
+    requireperk_all:
+      - first_saddle
+  urge:
+    icon: SUGAR
+    coords: "2,0"
+    name: "&e追う"
+    description: "&7Lv20 馬術perk"
+    cost: 1
+    required_lv: 20
+    perk_rewards:
+      horsemanship_urge_set: 1
+    requireperk_all:
+      - rein_sense
+  fleetfoot:
+    icon: FEATHER
+    coords: "3,0"
+    name: "&e駿足"
+    description: "&7Lv30 馬術perk"
+    cost: 1
+    required_lv: 30
+    perk_rewards:
+      horsemanship_fleetfoot_set: 1
+    requireperk_all:
+      - urge
+  long_haul:
+    icon: WHEAT
+    coords: "4,0"
+    name: "&e長駆"
+    description: "&7Lv30 馬術perk"
+    cost: 1
+    required_lv: 30
+    perk_rewards:
+      horsemanship_long_haul_set: 1
+    requireperk_all:
+      - urge
+  steady_hands:
+    icon: LEAD
+    coords: "5,0"
+    name: "&e確かな手綱"
+    description: "&7Lv30 馬術perk"
+    cost: 1
+    required_lv: 30
+    perk_rewards:
+      horsemanship_steady_hands_set: 1
+    requireperk_all:
+      - urge
+  cavalier:
+    icon: IRON_SWORD
+    coords: "6,0"
+    name: "&e騎兵"
+    description: "&7Lv30 馬術perk"
+    cost: 1
+    required_lv: 30
+    perk_rewards:
+      horsemanship_cavalier_set: 1
+    requireperk_all:
+      - urge
+  horse_sense:
+    icon: HAY_BLOCK
+    coords: "7,0"
+    name: "&e馬を見る目"
+    description: "&7Lv30 馬術perk"
+    cost: 1
+    required_lv: 30
+    perk_rewards:
+      horsemanship_horse_sense_set: 1
+    requireperk_all:
+      - urge
+  good_hands:
+    icon: SADDLE
+    coords: "0,1"
+    name: "&e巧者の手綱"
+    description: "&7Lv40 馬術perk"
+    cost: 1
+    required_lv: 40
+    perk_rewards:
+      horsemanship_good_hands_set: 1
+    requireperk_all:
+      - urge
+  breakaway:
+    horsemanship_exclusive: relentless_pace
+    icon: RABBIT_FOOT
+    coords: "1,1"
+    name: "&e抜け出し"
+    description: "&7Lv40 馬術perk"
+    cost: 1
+    required_lv: 40
+    perk_rewards:
+      horsemanship_breakaway_set: 1
+    requireperk_all:
+      - fleetfoot
+  relentless_pace:
+    horsemanship_exclusive: breakaway
+    icon: GOLDEN_CARROT
+    coords: "2,1"
+    name: "&e絶えぬ追い"
+    description: "&7Lv40 馬術perk"
+    cost: 1
+    required_lv: 40
+    perk_rewards:
+      horsemanship_relentless_pace_set: 1
+    requireperk_all:
+      - long_haul
+  over_the_fence:
+    icon: OAK_FENCE
+    coords: "3,1"
+    name: "&e飛越"
+    description: "&7Lv40 馬術perk"
+    cost: 1
+    required_lv: 40
+    perk_rewards:
+      horsemanship_over_the_fence_set: 1
+    requireperk_all:
+      - steady_hands
+  charge:
+    icon: SHIELD
+    coords: "4,1"
+    name: "&e突撃号令"
+    description: "&7Lv40 馬術perk"
+    cost: 1
+    required_lv: 40
+    perk_rewards:
+      horsemanship_charge_set: 1
+    requireperk_all:
+      - cavalier
+  full_gallop:
+    icon: IRON_HORSE_ARMOR
+    coords: "5,1"
+    name: "&e全速駆け"
+    description: "&7Lv50 馬術perk"
+    cost: 1
+    required_lv: 50
+    perk_rewards:
+      horsemanship_full_gallop_set: 1
+    requireperk_all:
+      - breakaway
+  trailwise:
+    icon: MAP
+    coords: "6,1"
+    name: "&e遠乗りの心得"
+    description: "&7追うCD短縮、長距離騎乗中の馬術EXP増加"
+    cost: 1
+    required_lv: 50
+    perk_rewards:
+      horsemanship_trailwise_set: 1
+    requireperk_all:
+      - relentless_pace
+  surefooted:
+    icon: LEATHER_BOOTS
+    coords: "7,1"
+    name: "&e足取り確か"
+    description: "&7Lv50 馬術perk"
+    cost: 1
+    required_lv: 50
+    perk_rewards:
+      horsemanship_surefooted_set: 1
+    requireperk_all:
+      - over_the_fence
+  mounted_marksman:
+    icon: BOW
+    coords: "0,2"
+    name: "&e騎射の心得"
+    description: "&7Lv50 馬術perk"
+    cost: 1
+    required_lv: 50
+    perk_rewards:
+      horsemanship_mounted_marksman_set: 1
+    requireperk_all:
+      - cavalier
+    other_levels_required:
+      - ARCHERY:50
+  breeders_insight:
+    icon: WHEAT
+    coords: "1,2"
+    name: "&e生産者の眼"
+    description: "&7Lv50 馬術perk"
+    cost: 1
+    required_lv: 50
+    perk_rewards:
+      horsemanship_breeders_insight_set: 1
+    requireperk_all:
+      - horse_sense
+    other_levels_required:
+      - FARMING:50
+  seasoned_rider:
+    icon: SADDLE
+    coords: "2,2"
+    name: "&e熟練騎手"
+    description: "&7Lv60 馬術perk"
+    cost: 1
+    required_lv: 60
+    perk_rewards:
+      horsemanship_seasoned_rider_set: 1
+    requireperk_all:
+      - good_hands
+  quick_response:
+    icon: CLOCK
+    coords: "3,2"
+    name: "&e即応"
+    description: "&7Lv60 馬術perk"
+    cost: 1
+    required_lv: 60
+    perk_rewards:
+      horsemanship_quick_response_set: 1
+    requireperk_all:
+      - full_gallop
+  steady_pace:
+    icon: COMPASS
+    coords: "4,2"
+    name: "&e巡航の極意"
+    description: "&7Lv60 馬術perk"
+    cost: 1
+    required_lv: 60
+    perk_rewards:
+      horsemanship_steady_pace_set: 1
+    requireperk_all:
+      - trailwise
+  calm_rein:
+    icon: LEAD
+    coords: "5,2"
+    name: "&e冷静な手綱"
+    description: "&7Lv60 馬術perk"
+    cost: 1
+    required_lv: 60
+    perk_rewards:
+      horsemanship_calm_rein_set: 1
+    requireperk_all:
+      - surefooted
+  veteran_cavalry:
+    icon: IRON_SWORD
+    coords: "6,2"
+    name: "&e古参騎兵"
+    description: "&7Lv60 馬術perk"
+    cost: 1
+    required_lv: 60
+    perk_rewards:
+      horsemanship_veteran_cavalry_set: 1
+    requireperk_all:
+      - cavalier
+  lightning_start:
+    icon: BLAZE_POWDER
+    coords: "7,2"
+    name: "&e電光の発進"
+    description: "&7Lv70 馬術perk"
+    cost: 1
+    required_lv: 70
+    perk_rewards:
+      horsemanship_lightning_start_set: 1
+    requireperk_all:
+      - quick_response
+  second_wind:
+    icon: GOLDEN_APPLE
+    coords: "0,3"
+    name: "&e息を吹き返す"
+    description: "&7Lv70 馬術perk"
+    cost: 1
+    required_lv: 70
+    perk_rewards:
+      horsemanship_second_wind_set: 1
+    requireperk_all:
+      - steady_pace
+  fine_control:
+    icon: TARGET
+    coords: "1,3"
+    name: "&e精密操作"
+    description: "&7Lv70 馬術perk"
+    cost: 1
+    required_lv: 70
+    perk_rewards:
+      horsemanship_fine_control_set: 1
+    requireperk_all:
+      - calm_rein
+  heavy_cavalry:
+    horsemanship_exclusive: light_cavalry
+    icon: IRON_CHESTPLATE
+    coords: "2,3"
+    name: "&e重装騎兵"
+    description: "&7Lv70 馬術perk"
+    cost: 1
+    required_lv: 70
+    perk_rewards:
+      horsemanship_heavy_cavalry_set: 1
+    requireperk_all:
+      - veteran_cavalry
+    other_levels_required:
+      - HEAVY_ARMOR:50
+  light_cavalry:
+    horsemanship_exclusive: heavy_cavalry
+    icon: LEATHER_CHESTPLATE
+    coords: "3,3"
+    name: "&e軽装騎兵"
+    description: "&7Lv70 馬術perk"
+    cost: 1
+    required_lv: 70
+    perk_rewards:
+      horsemanship_light_cavalry_set: 1
+    requireperk_all:
+      - veteran_cavalry
+    other_levels_required:
+      - LIGHT_ARMOR:50
+  bloodline_study:
+    icon: BOOK
+    coords: "4,3"
+    name: "&e血統研究"
+    description: "&7Lv70 馬術perk"
+    cost: 1
+    required_lv: 70
+    perk_rewards:
+      horsemanship_bloodline_study_set: 1
+    requireperk_all:
+      - breeders_insight
+    other_levels_required:
+      - FARMING:60
+  mutual_trust:
+    icon: HEART_OF_THE_SEA
+    coords: "5,3"
+    name: "&e信頼の手綱"
+    description: "&7Lv80 馬術perk"
+    cost: 1
+    required_lv: 80
+    perk_rewards:
+      horsemanship_mutual_trust_set: 1
+    requireperk_all:
+      - seasoned_rider
+  ride_the_wind:
+    icon: ELYTRA
+    coords: "6,3"
+    name: "&e風に乗る"
+    description: "&7Lv80 馬術perk"
+    cost: 1
+    required_lv: 80
+    perk_rewards:
+      horsemanship_ride_the_wind_set: 1
+    requireperk_all:
+      - lightning_start
+  iron_journey:
+    icon: IRON_HORSE_ARMOR
+    coords: "7,3"
+    name: "&e不屈の遠乗り"
+    description: "&7Lv80 馬術perk"
+    cost: 1
+    required_lv: 80
+    perk_rewards:
+      horsemanship_iron_journey_set: 1
+    requireperk_all:
+      - second_wind
+  sure_landing:
+    icon: SLIME_BLOCK
+    coords: "0,4"
+    name: "&e確かな着地"
+    description: "&7Lv80 馬術perk"
+    cost: 1
+    required_lv: 80
+    perk_rewards:
+      horsemanship_sure_landing_set: 1
+    requireperk_all:
+      - fine_control
+  first_impact:
+    icon: DIAMOND_SWORD
+    coords: "1,4"
+    name: "&e初撃"
+    description: "&7Lv80 馬術perk"
+    cost: 1
+    required_lv: 80
+    perk_rewards:
+      horsemanship_first_impact_set: 1
+    requireperk_one:
+      - heavy_cavalry
+      - light_cavalry
+  windborne:
+    icon: WIND_CHARGE
+    coords: "2,4"
+    name: "&e疾風一体"
+    description: "&7Lv90 馬術perk"
+    cost: 1
+    required_lv: 90
+    perk_rewards:
+      horsemanship_windborne_set: 1
+    requireperk_all:
+      - ride_the_wind
+  endless_road:
+    icon: RECOVERY_COMPASS
+    coords: "3,4"
+    name: "&e果てなき道"
+    description: "&7Lv90 馬術perk"
+    cost: 1
+    required_lv: 90
+    perk_rewards:
+      horsemanship_endless_road_set: 1
+    requireperk_all:
+      - iron_journey
+  master_of_reins:
+    icon: LEAD
+    coords: "4,4"
+    name: "&e手綱の達人"
+    description: "&7Lv90 馬術perk"
+    cost: 1
+    required_lv: 90
+    perk_rewards:
+      horsemanship_master_of_reins_set: 1
+    requireperk_all:
+      - sure_landing
+  iron_vanguard:
+    horsemanship_exclusive: swift_rider
+    icon: NETHERITE_CHESTPLATE
+    coords: "5,4"
+    name: "&e鉄騎先鋒"
+    description: "&7Lv90 馬術perk"
+    cost: 1
+    required_lv: 90
+    perk_rewards:
+      horsemanship_iron_vanguard_set: 1
+    requireperk_all:
+      - heavy_cavalry
+    other_levels_required:
+      - HEAVY_WEAPONS:60
+  swift_rider:
+    horsemanship_exclusive: iron_vanguard
+    icon: DIAMOND_BOOTS
+    coords: "6,4"
+    name: "&e疾駆戦騎"
+    description: "&7Lv90 馬術perk"
+    cost: 1
+    required_lv: 90
+    perk_rewards:
+      horsemanship_swift_rider_set: 1
+    requireperk_all:
+      - light_cavalry
+    other_levels_required:
+      - LIGHT_WEAPONS:60
+  horse_whisperer:
+    icon: GOLDEN_CARROT
+    coords: "7,4"
+    name: "&e名伯楽"
+    description: "&7Lv90 馬術perk"
+    cost: 1
+    required_lv: 90
+    perk_rewards:
+      horsemanship_horse_whisperer_set: 1
+    requireperk_all:
+      - bloodline_study
+  one_as_one:
+    icon: NETHER_STAR
+    coords: "0,5"
+    name: "&e人馬一体"
+    description: "&7Lv100 馬術perk"
+    cost: 1
+    required_lv: 100
+    perk_rewards:
+      horsemanship_one_as_one_set: 1
+    requireperk_all:
+      - mutual_trust
+  ng_plus_master:
+    icon: TOTEM_OF_UNDYING
+    coords: "0,6"
+    name: "&6マスター"
+    description: "&7NG+1: 永続的な馬術熟練"
+    cost: 0
+    hidden: true
+    required_lv: 100
+    requireperk_all:
+      - one_as_one
+    perk_rewards:
+      reset_skill_horsemanship: 0
+      p:horsemanship_newGamePlus_add: 1
+      p:perks_permanently_unlocked_add:
+        - ng_plus_master
+      p:perks_unlocked_remove:
+        - ng_plus_master
+  ng_plus_legend:
+    icon: NETHER_STAR
+    coords: "1,6"
+    name: "&6レジェンド"
+    description: "&7NG+2: 永続的な馬術熟練"
+    cost: 0
+    hidden: true
+    required_lv: 100
+    requireperk_all:
+      - ng_plus_master
+      - one_as_one
+    perk_rewards:
+      reset_skill_horsemanship: 0
+      p:horsemanship_newGamePlus_add: 1
+      p:perks_permanently_unlocked_add:
+        - ng_plus_legend
+      p:perks_unlocked_remove:
+        - ng_plus_legend

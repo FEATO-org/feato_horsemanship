@@ -1,0 +1,17 @@
+plugins { id 'java' }
+group = 'jp.feato'
+version = '0.1.0'
+repositories {
+    maven { url = uri('https://repo.papermc.io/repository/maven-public/') }
+    mavenCentral()
+}
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:26.2.build.126-stable'
+    testImplementation 'io.papermc.paper:paper-api:26.2.build.126-stable'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.13.4'
+}
+java { toolchain.languageVersion = JavaLanguageVersion.of(25) }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+test { useJUnitPlatform() }
+tasks.register('printVersion') { doLast { println(project.version) } }

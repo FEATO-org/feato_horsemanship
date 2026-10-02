@@ -1,0 +1,14 @@
+name: FEATOHorsemanship
+version: 0.1.0
+main: jp.feato.horsemanship.HorsemanshipPlugin
+api-version: '26.2'
+author: FEATO
+depend: [ValhallaMMO]
+softdepend: [BetterHorses, DualHorse]
+commands:
+  horsemanship:
+    description: FEATO Horsemanship information and administration
+    usage: /horsemanship <inspect|parent|predict|reload>
+permissions:
+  feato.horsemanship.admin:
+    default: op

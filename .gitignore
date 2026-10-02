@@ -1,0 +1,5 @@
+.gradle/
+build/
+local/libs/
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
