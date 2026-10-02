@@ -1,0 +1,104 @@
+name: Manual build and release
+
+'on':
+  workflow_dispatch:
+    inputs:
+      publish_release:
+        description: 'Publish a GitHub Release for the version in build.gradle'
+        type: boolean
+        required: true
+        default: false
+
+concurrency:
+  group: feato-horsemanship-manual-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.version.outputs.value }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Set up Java 25
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+      - name: Check release branch
+        if: inputs.publish_release
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          if [[ "$GITHUB_REF" != "refs/heads/$DEFAULT_BRANCH" ]]; then
+            echo "Releases must run from the default branch: $DEFAULT_BRANCH" >&2
+            exit 1
+          fi
+      - name: Build and test
+        run: ./gradlew --no-daemon clean build
+      - name: Read version and stage files
+        id: version
+        run: |
+          version="$(./gradlew --no-daemon -q printVersion)"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid release version in build.gradle: $version" >&2
+            exit 1
+          fi
+          jar="build/libs/feato-horsemanship-${version}.jar"
+          test -f "$jar"
+          mkdir -p dist
+          cp "$jar" src/main/resources/horsemanship.yml dist/
+          (cd dist && sha256sum "feato-horsemanship-${version}.jar" horsemanship.yml > SHA256SUMS)
+          echo "value=$version" >> "$GITHUB_OUTPUT"
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: feato-horsemanship-${{ steps.version.outputs.value }}
+          path: dist/
+          if-no-files-found: error
+
+  release:
+    if: inputs.publish_release
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Check out release commit and tags
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Download verified build
+        uses: actions/download-artifact@v8
+        with:
+          name: feato-horsemanship-${{ needs.build.outputs.version }}
+          path: dist
+      - name: Verify release files and tag
+        env:
+          RELEASE_VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          tag="v$RELEASE_VERSION"
+          (cd dist && sha256sum --check SHA256SUMS)
+          if git show-ref --verify --quiet "refs/tags/$tag"; then
+            echo "Tag already exists: $tag" >&2
+            exit 1
+          fi
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          tag="v$RELEASE_VERSION"
+          gh release create "$tag" dist/* \
+            --target "$GITHUB_SHA" \
+            --title "FEATO Horsemanship $tag" \
+            --generate-notes
