@@ -1,6 +1,6 @@
 plugins { id 'java' }
 group = 'jp.feato'
-version = '0.1.0'
+version = providers.gradleProperty('buildVersion').orElse('0.1.0').get()
 repositories {
     maven { url = uri('https://repo.papermc.io/repository/maven-public/') }
     mavenCentral()
@@ -13,5 +13,8 @@ dependencies {
 }
 java { toolchain.languageVersion = JavaLanguageVersion.of(25) }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.processResources {
+    filesMatching('plugin.yml') { expand(version: project.version) }
+}
 test { useJUnitPlatform() }
 tasks.register('printVersion') { doLast { println(project.version) } }

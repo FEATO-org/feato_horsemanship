@@ -1,5 +1,5 @@
 name: FEATOHorsemanship
-version: 0.1.0
+version: ${version}
 main: jp.feato.horsemanship.HorsemanshipPlugin
 api-version: '26.2'
 author: FEATO

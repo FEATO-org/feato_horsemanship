@@ -3,8 +3,13 @@ name: Manual build and release
 'on':
   workflow_dispatch:
     inputs:
+      version:
+        description: 'Version to build and tag (for example, 0.2.0)'
+        type: string
+        required: true
+        default: '0.1.0'
       publish_release:
-        description: 'Publish a GitHub Release for the version in build.gradle'
+        description: 'Create a tag and publish a GitHub Release'
         type: boolean
         required: true
         default: false
@@ -16,6 +21,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    env:
+      BUILD_VERSION: ${{ inputs.version }}
     permissions:
       contents: read
     outputs:
@@ -40,22 +47,23 @@ jobs:
             echo "Releases must run from the default branch: $DEFAULT_BRANCH" >&2
             exit 1
           fi
-      - name: Build and test
-        run: ./gradlew --no-daemon clean build
-      - name: Read version and stage files
+      - name: Validate requested version
         id: version
         run: |
-          version="$(./gradlew --no-daemon -q printVersion)"
-          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
-            echo "Invalid release version in build.gradle: $version" >&2
+          if [[ ! "$BUILD_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid version: $BUILD_VERSION" >&2
             exit 1
           fi
-          jar="build/libs/feato-horsemanship-${version}.jar"
+          echo "value=$BUILD_VERSION" >> "$GITHUB_OUTPUT"
+      - name: Build and test
+        run: ./gradlew --no-daemon -PbuildVersion="$BUILD_VERSION" clean build
+      - name: Stage release files
+        run: |
+          jar="build/libs/feato-horsemanship-${BUILD_VERSION}.jar"
           test -f "$jar"
           mkdir -p dist
           cp "$jar" src/main/resources/horsemanship.yml dist/
-          (cd dist && sha256sum "feato-horsemanship-${version}.jar" horsemanship.yml > SHA256SUMS)
-          echo "value=$version" >> "$GITHUB_OUTPUT"
+          (cd dist && sha256sum "feato-horsemanship-${BUILD_VERSION}.jar" horsemanship.yml > SHA256SUMS)
       - name: Upload build artifact
         uses: actions/upload-artifact@v7
         with:
@@ -75,21 +83,28 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
-          persist-credentials: false
+          persist-credentials: true
       - name: Download verified build
         uses: actions/download-artifact@v8
         with:
           name: feato-horsemanship-${{ needs.build.outputs.version }}
           path: dist
-      - name: Verify release files and tag
+      - name: Verify release files and create tag
         env:
           RELEASE_VERSION: ${{ needs.build.outputs.version }}
         run: |
           tag="v$RELEASE_VERSION"
           (cd dist && sha256sum --check SHA256SUMS)
-          if git show-ref --verify --quiet "refs/tags/$tag"; then
-            echo "Tag already exists: $tag" >&2
+          existing="$(git rev-parse -q --verify "refs/tags/$tag^{commit}" 2>/dev/null || true)"
+          if [[ -n "$existing" && "$existing" != "$GITHUB_SHA" ]]; then
+            echo "Tag $tag already points to a different commit" >&2
             exit 1
+          fi
+          if [[ -z "$existing" ]]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git tag -a "$tag" "$GITHUB_SHA" -m "FEATO Horsemanship $tag"
+            git push origin "refs/tags/$tag"
           fi
       - name: Publish GitHub Release
         env:
@@ -98,7 +113,9 @@ jobs:
           RELEASE_VERSION: ${{ needs.build.outputs.version }}
         run: |
           tag="v$RELEASE_VERSION"
+          release_flags=()
+          if [[ "$RELEASE_VERSION" == *-* ]]; then release_flags+=(--prerelease); fi
           gh release create "$tag" dist/* \
-            --target "$GITHUB_SHA" \
+            --verify-tag \
             --title "FEATO Horsemanship $tag" \
-            --generate-notes
+            --generate-notes "${release_flags[@]}"

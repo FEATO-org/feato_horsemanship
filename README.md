@@ -63,8 +63,8 @@ Paper APIで直接表せない加速立ち上がり、旋回、着地の速度�
 
 ### GitHub Actionsで手動ビルド・リリース
 
-`.github/workflows/manual-build-release.yml` をデフォルトブランチへ反映すると、GitHubの **Actions → Manual build and release → Run workflow** から起動できます。`publish_release` をオフにするとJava 25でテスト・ビルドし、JAR、`horsemanship.yml`、`SHA256SUMS` を実行結果のArtifactに保存します。オンにすると、デフォルトブランチのコミットをビルドした後、同じ3ファイルを添付したGitHub Releaseを公開します。
+GitHubの **Actions → Manual build and release → Run workflow** で`version`（例: `0.2.0`）を入力できます。`publish_release` をオフにすると、指定バージョンのJARをJava 25でテスト・ビルドし、JAR、`horsemanship.yml`、`SHA256SUMS` を実行結果のArtifactに保存します。オンにすると、デフォルトブランチのコミットに`v0.2.0`形式の注釈付きタグを自動作成し、同じ3ファイルを添付したGitHub Releaseを公開します。
 
-Releaseのタグは `build.gradle` の `version` から `v0.1.0` の形式で作成します。既存タグがある場合は失敗するため、次回のリリース前にversionを更新してください。GitHub側でActionsの実行とRepository contentsへの書き込みが許可されている必要があります。Workflowと`gradle/wrapper/gradle-wrapper.jar`を含むリポジトリのファイルをデフォルトブランチへpushするまでは、GitHubの実行ボタンは表示されません。
+入力した`version`はJAR名、Gradleのproject version、プラグイン内の`plugin.yml`にも使われます。既存タグが別コミットを指す場合は失敗し、同じコミットを指すタグならRelease作成を再試行できます。`-rc1`などの接尾辞付きバージョンはpre-releaseとして公開します。ローカルビルドでは`build.gradle`の既定値`0.1.0`を使用し、`./gradlew -PbuildVersion=0.2.0 clean build`で上書きできます。GitHub側でActionsの実行とRepository contentsへの書き込みが許可されている必要があります。
 
 Paper APIは `compileOnly`、ValhallaMMOとBetterHorsesはサーバー側JARを使用し、shadeしません。ValhallaとBetterHorsesの公開メソッドへのアクセスは各integration adapter内に限定しています。pure logicとCustom Skill YAMLのJUnitテストを含みます。Paper実機と3プラグインを同時に起動した実環境テストは別途必要です。
