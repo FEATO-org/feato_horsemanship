@@ -4,16 +4,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collection;
 
 /** Only Valhalla's public surface is invoked here; no profile internals are accessed. */
 public final class ValhallaAdapter {
     private final Object skill;
     private final Method addExperience;
-    private final Method getProfile;
+    private final Method getPersistentConfigurableProfile;
     private final Method getPersistentProfile;
-    private final Method getInt;
+    private final Class<?> powerProfile;
+    private final Method getUnlockedPerks;
+    private final Method getPermanentlyUnlockedPerks;
     private final Method getLevel;
-    private final Method getNewGamePlus;
     private final Object skillAction;
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -26,20 +28,33 @@ public final class ValhallaAdapter {
         skillAction = Enum.valueOf((Class<? extends Enum>) reason.asSubclass(Enum.class), "SKILL_ACTION");
         addExperience = skill.getClass().getMethod("addEXP", Player.class, double.class, boolean.class, reason);
         Class<?> profiles = loader.loadClass("me.athlaeos.valhallammo.playerstats.profiles.ProfileRegistry");
-        getProfile = profiles.getMethod("getSkillConfigurableProfile", Player.class, String.class);
-        getPersistentProfile = profiles.getMethod("getPersistentConfigurableProfile", Player.class, String.class);
-        Class<?> profileType = getProfile.getReturnType();
-        getInt = profileType.getMethod("getInt", String.class);
+        powerProfile = loader.loadClass("me.athlaeos.valhallammo.playerstats.profiles.implementations.PowerProfile");
+        getPersistentConfigurableProfile = profiles.getMethod("getPersistentConfigurableProfile", Player.class, String.class);
+        getPersistentProfile = profiles.getMethod("getPersistentProfile", Player.class, Class.class);
+        getUnlockedPerks = powerProfile.getMethod("getUnlockedPerks");
+        getPermanentlyUnlockedPerks = powerProfile.getMethod("getPermanentlyUnlockedPerks");
+        Class<?> profileType = getPersistentConfigurableProfile.getReturnType();
         getLevel = profileType.getMethod("getLevel");
-        getNewGamePlus = profileType.getMethod("getNewGamePlus");
     }
-    public int level(Player player) { return ((Number) invoke(getLevel, invoke(getPersistentProfile, null, player, "HORSEMANSHIP"))).intValue(); }
-    public int newGamePlus(Player player) { return ((Number) invoke(getNewGamePlus, invoke(getPersistentProfile, null, player, "HORSEMANSHIP"))).intValue(); }
-    public boolean has(Player player, String perk) { return ((Number) invoke(getInt, profile(player), perk)).intValue() > 0; }
+    public int level(Player player) { return ((Number) invoke(getLevel, configurableProfile(player))).intValue(); }
+    public int newGamePlus(Player player) { return newGamePlus(permanentPerks(player)); }
+    static int newGamePlus(Collection<?> permanent) {
+        if (permanent.contains("ng_plus_legend")) return 2;
+        return permanent.contains("ng_plus_master") ? 1 : 0;
+    }
+    public boolean has(Player player, String perk) {
+        Object profile = powerProfile(player);
+        return ((Collection<?>) invoke(getUnlockedPerks, profile)).contains(perk)
+            || ((Collection<?>) invoke(getPermanentlyUnlockedPerks, profile)).contains(perk);
+    }
     public void addExperience(Player player, double amount) {
         if (amount > 0) invoke(addExperience, skill, player, amount, true, skillAction);
     }
-    private Object profile(Player player) { return invoke(getProfile, null, player, "HORSEMANSHIP"); }
+    private Collection<?> permanentPerks(Player player) {
+        return (Collection<?>) invoke(getPermanentlyUnlockedPerks, powerProfile(player));
+    }
+    private Object powerProfile(Player player) { return invoke(getPersistentProfile, null, player, powerProfile); }
+    private Object configurableProfile(Player player) { return invoke(getPersistentConfigurableProfile, null, player, "HORSEMANSHIP"); }
     private static Object invoke(Method method, Object receiver, Object... args) {
         try { return method.invoke(receiver, args); }
         catch (IllegalAccessException | InvocationTargetException error) { throw new IllegalStateException("Valhalla public API failed: " + method.getName(), error); }

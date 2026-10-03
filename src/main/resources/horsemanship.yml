@@ -69,7 +69,8 @@ perks:
     cost: 0
     required_lv: 0
     perk_rewards:
-      horsemanship_first_saddle_set: 1
+      p:perks_unlocked_add:
+        - first_saddle
   rein_sense:
     icon: LEAD
     coords: "1,0"
@@ -78,7 +79,8 @@ perks:
     cost: 1
     required_lv: 10
     perk_rewards:
-      horsemanship_rein_sense_set: 1
+      p:perks_unlocked_add:
+        - rein_sense
     requireperk_all:
       - first_saddle
   urge:
@@ -89,7 +91,8 @@ perks:
     cost: 1
     required_lv: 20
     perk_rewards:
-      horsemanship_urge_set: 1
+      p:perks_unlocked_add:
+        - urge
     requireperk_all:
       - rein_sense
   fleetfoot:
@@ -100,7 +103,8 @@ perks:
     cost: 1
     required_lv: 30
     perk_rewards:
-      horsemanship_fleetfoot_set: 1
+      p:perks_unlocked_add:
+        - fleetfoot
     requireperk_all:
       - urge
   long_haul:
@@ -111,7 +115,8 @@ perks:
     cost: 1
     required_lv: 30
     perk_rewards:
-      horsemanship_long_haul_set: 1
+      p:perks_unlocked_add:
+        - long_haul
     requireperk_all:
       - urge
   steady_hands:
@@ -122,7 +127,8 @@ perks:
     cost: 1
     required_lv: 30
     perk_rewards:
-      horsemanship_steady_hands_set: 1
+      p:perks_unlocked_add:
+        - steady_hands
     requireperk_all:
       - urge
   cavalier:
@@ -133,7 +139,8 @@ perks:
     cost: 1
     required_lv: 30
     perk_rewards:
-      horsemanship_cavalier_set: 1
+      p:perks_unlocked_add:
+        - cavalier
     requireperk_all:
       - urge
   horse_sense:
@@ -144,7 +151,8 @@ perks:
     cost: 1
     required_lv: 30
     perk_rewards:
-      horsemanship_horse_sense_set: 1
+      p:perks_unlocked_add:
+        - horse_sense
     requireperk_all:
       - urge
   good_hands:
@@ -155,7 +163,8 @@ perks:
     cost: 1
     required_lv: 40
     perk_rewards:
-      horsemanship_good_hands_set: 1
+      p:perks_unlocked_add:
+        - good_hands
     requireperk_all:
       - urge
   breakaway:
@@ -167,7 +176,8 @@ perks:
     cost: 1
     required_lv: 40
     perk_rewards:
-      horsemanship_breakaway_set: 1
+      p:perks_unlocked_add:
+        - breakaway
     requireperk_all:
       - fleetfoot
   relentless_pace:
@@ -179,7 +189,8 @@ perks:
     cost: 1
     required_lv: 40
     perk_rewards:
-      horsemanship_relentless_pace_set: 1
+      p:perks_unlocked_add:
+        - relentless_pace
     requireperk_all:
       - long_haul
   over_the_fence:
@@ -190,7 +201,8 @@ perks:
     cost: 1
     required_lv: 40
     perk_rewards:
-      horsemanship_over_the_fence_set: 1
+      p:perks_unlocked_add:
+        - over_the_fence
     requireperk_all:
       - steady_hands
   charge:
@@ -201,7 +213,8 @@ perks:
     cost: 1
     required_lv: 40
     perk_rewards:
-      horsemanship_charge_set: 1
+      p:perks_unlocked_add:
+        - charge
     requireperk_all:
       - cavalier
   full_gallop:
@@ -212,7 +225,8 @@ perks:
     cost: 1
     required_lv: 50
     perk_rewards:
-      horsemanship_full_gallop_set: 1
+      p:perks_unlocked_add:
+        - full_gallop
     requireperk_all:
       - breakaway
   trailwise:
@@ -223,7 +237,8 @@ perks:
     cost: 1
     required_lv: 50
     perk_rewards:
-      horsemanship_trailwise_set: 1
+      p:perks_unlocked_add:
+        - trailwise
     requireperk_all:
       - relentless_pace
   surefooted:
@@ -234,7 +249,8 @@ perks:
     cost: 1
     required_lv: 50
     perk_rewards:
-      horsemanship_surefooted_set: 1
+      p:perks_unlocked_add:
+        - surefooted
     requireperk_all:
       - over_the_fence
   mounted_marksman:
@@ -245,7 +261,8 @@ perks:
     cost: 1
     required_lv: 50
     perk_rewards:
-      horsemanship_mounted_marksman_set: 1
+      p:perks_unlocked_add:
+        - mounted_marksman
     requireperk_all:
       - cavalier
     other_levels_required:
@@ -258,7 +275,8 @@ perks:
     cost: 1
     required_lv: 50
     perk_rewards:
-      horsemanship_breeders_insight_set: 1
+      p:perks_unlocked_add:
+        - breeders_insight
     requireperk_all:
       - horse_sense
     other_levels_required:
@@ -271,7 +289,8 @@ perks:
     cost: 1
     required_lv: 60
     perk_rewards:
-      horsemanship_seasoned_rider_set: 1
+      p:perks_unlocked_add:
+        - seasoned_rider
     requireperk_all:
       - good_hands
   quick_response:
@@ -282,7 +301,8 @@ perks:
     cost: 1
     required_lv: 60
     perk_rewards:
-      horsemanship_quick_response_set: 1
+      p:perks_unlocked_add:
+        - quick_response
     requireperk_all:
       - full_gallop
   steady_pace:
@@ -293,7 +313,8 @@ perks:
     cost: 1
     required_lv: 60
     perk_rewards:
-      horsemanship_steady_pace_set: 1
+      p:perks_unlocked_add:
+        - steady_pace
     requireperk_all:
       - trailwise
   calm_rein:
@@ -304,7 +325,8 @@ perks:
     cost: 1
     required_lv: 60
     perk_rewards:
-      horsemanship_calm_rein_set: 1
+      p:perks_unlocked_add:
+        - calm_rein
     requireperk_all:
       - surefooted
   veteran_cavalry:
@@ -315,7 +337,8 @@ perks:
     cost: 1
     required_lv: 60
     perk_rewards:
-      horsemanship_veteran_cavalry_set: 1
+      p:perks_unlocked_add:
+        - veteran_cavalry
     requireperk_all:
       - cavalier
   lightning_start:
@@ -326,7 +349,8 @@ perks:
     cost: 1
     required_lv: 70
     perk_rewards:
-      horsemanship_lightning_start_set: 1
+      p:perks_unlocked_add:
+        - lightning_start
     requireperk_all:
       - quick_response
   second_wind:
@@ -337,7 +361,8 @@ perks:
     cost: 1
     required_lv: 70
     perk_rewards:
-      horsemanship_second_wind_set: 1
+      p:perks_unlocked_add:
+        - second_wind
     requireperk_all:
       - steady_pace
   fine_control:
@@ -348,7 +373,8 @@ perks:
     cost: 1
     required_lv: 70
     perk_rewards:
-      horsemanship_fine_control_set: 1
+      p:perks_unlocked_add:
+        - fine_control
     requireperk_all:
       - calm_rein
   heavy_cavalry:
@@ -360,7 +386,8 @@ perks:
     cost: 1
     required_lv: 70
     perk_rewards:
-      horsemanship_heavy_cavalry_set: 1
+      p:perks_unlocked_add:
+        - heavy_cavalry
     requireperk_all:
       - veteran_cavalry
     other_levels_required:
@@ -374,7 +401,8 @@ perks:
     cost: 1
     required_lv: 70
     perk_rewards:
-      horsemanship_light_cavalry_set: 1
+      p:perks_unlocked_add:
+        - light_cavalry
     requireperk_all:
       - veteran_cavalry
     other_levels_required:
@@ -387,7 +415,8 @@ perks:
     cost: 1
     required_lv: 70
     perk_rewards:
-      horsemanship_bloodline_study_set: 1
+      p:perks_unlocked_add:
+        - bloodline_study
     requireperk_all:
       - breeders_insight
     other_levels_required:
@@ -400,7 +429,8 @@ perks:
     cost: 1
     required_lv: 80
     perk_rewards:
-      horsemanship_mutual_trust_set: 1
+      p:perks_unlocked_add:
+        - mutual_trust
     requireperk_all:
       - seasoned_rider
   ride_the_wind:
@@ -411,7 +441,8 @@ perks:
     cost: 1
     required_lv: 80
     perk_rewards:
-      horsemanship_ride_the_wind_set: 1
+      p:perks_unlocked_add:
+        - ride_the_wind
     requireperk_all:
       - lightning_start
   iron_journey:
@@ -422,7 +453,8 @@ perks:
     cost: 1
     required_lv: 80
     perk_rewards:
-      horsemanship_iron_journey_set: 1
+      p:perks_unlocked_add:
+        - iron_journey
     requireperk_all:
       - second_wind
   sure_landing:
@@ -433,7 +465,8 @@ perks:
     cost: 1
     required_lv: 80
     perk_rewards:
-      horsemanship_sure_landing_set: 1
+      p:perks_unlocked_add:
+        - sure_landing
     requireperk_all:
       - fine_control
   first_impact:
@@ -444,7 +477,8 @@ perks:
     cost: 1
     required_lv: 80
     perk_rewards:
-      horsemanship_first_impact_set: 1
+      p:perks_unlocked_add:
+        - first_impact
     requireperk_one:
       - heavy_cavalry
       - light_cavalry
@@ -456,7 +490,8 @@ perks:
     cost: 1
     required_lv: 90
     perk_rewards:
-      horsemanship_windborne_set: 1
+      p:perks_unlocked_add:
+        - windborne
     requireperk_all:
       - ride_the_wind
   endless_road:
@@ -467,7 +502,8 @@ perks:
     cost: 1
     required_lv: 90
     perk_rewards:
-      horsemanship_endless_road_set: 1
+      p:perks_unlocked_add:
+        - endless_road
     requireperk_all:
       - iron_journey
   master_of_reins:
@@ -478,7 +514,8 @@ perks:
     cost: 1
     required_lv: 90
     perk_rewards:
-      horsemanship_master_of_reins_set: 1
+      p:perks_unlocked_add:
+        - master_of_reins
     requireperk_all:
       - sure_landing
   iron_vanguard:
@@ -490,7 +527,8 @@ perks:
     cost: 1
     required_lv: 90
     perk_rewards:
-      horsemanship_iron_vanguard_set: 1
+      p:perks_unlocked_add:
+        - iron_vanguard
     requireperk_all:
       - heavy_cavalry
     other_levels_required:
@@ -504,7 +542,8 @@ perks:
     cost: 1
     required_lv: 90
     perk_rewards:
-      horsemanship_swift_rider_set: 1
+      p:perks_unlocked_add:
+        - swift_rider
     requireperk_all:
       - light_cavalry
     other_levels_required:
@@ -517,7 +556,8 @@ perks:
     cost: 1
     required_lv: 90
     perk_rewards:
-      horsemanship_horse_whisperer_set: 1
+      p:perks_unlocked_add:
+        - horse_whisperer
     requireperk_all:
       - bloodline_study
   one_as_one:
@@ -528,7 +568,8 @@ perks:
     cost: 1
     required_lv: 100
     perk_rewards:
-      horsemanship_one_as_one_set: 1
+      p:perks_unlocked_add:
+        - one_as_one
     requireperk_all:
       - mutual_trust
   ng_plus_master:
@@ -543,7 +584,6 @@ perks:
       - one_as_one
     perk_rewards:
       reset_skill_horsemanship: 0
-      p:horsemanship_newGamePlus_add: 1
       p:perks_permanently_unlocked_add:
         - ng_plus_master
       p:perks_unlocked_remove:
@@ -561,7 +601,6 @@ perks:
       - one_as_one
     perk_rewards:
       reset_skill_horsemanship: 0
-      p:horsemanship_newGamePlus_add: 1
       p:perks_permanently_unlocked_add:
         - ng_plus_legend
       p:perks_unlocked_remove:

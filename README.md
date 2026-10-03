@@ -41,7 +41,7 @@ BreakawayとRelentless Pace、HeavyとLight Cavalry、Iron VanguardとSwift Ride
 
 Iron VanguardはHeavy Cavalryに加えて `HEAVY_WEAPONS:60`、Swift RiderはLight Cavalryに加えて `LIGHT_WEAPONS:60` を要求します。外部スキルのOR条件をYAMLで推測表現せず、仕様で許可された単一路線を採用しました。Mounted Marksmanは `ARCHERY:50`、Breeder's Insightは `FARMING:50`、Bloodline Studyは `FARMING:60` です。
 
-Lv100のNG+ Master / LegendはValhalla標準のskill resetとpersistent `newGamePlus` statを使います。Masterで疲労率-2%、応答-0.2秒、EXP+10%、Horsekeeping補助+5%。Legendでさらに疲労率-2%、応答-0.2秒、CD-2秒です。疲労率は5%未満、応答は0.1秒未満になりません。人馬一体の条件付き50%は上昇しません。
+Lv100のNG+ Master / LegendはValhalla標準のskill resetと永続取得Perkを使います。Masterで疲労率-2%、応答-0.2秒、EXP+10%、Horsekeeping補助+5%。Legendでさらに疲労率-2%、応答-0.2秒、CD-2秒です。疲労率は5%未満、応答は0.1秒未満になりません。人馬一体の条件付き50%は上昇しません。
 
 ## Horsekeeping
 
@@ -67,4 +67,4 @@ GitHubの **Actions → Manual build and release → Run workflow** で`version`
 
 入力した`version`はJAR名、Gradleのproject version、プラグイン内の`plugin.yml`にも使われます。既存タグが別コミットを指す場合は失敗し、同じコミットを指すタグならRelease作成を再試行できます。`-rc1`などの接尾辞付きバージョンはpre-releaseとして公開します。ローカルビルドでは`build.gradle`の既定値`0.1.0`を使用し、`./gradlew -PbuildVersion=0.2.0 clean build`で上書きできます。GitHub側でActionsの実行とRepository contentsへの書き込みが許可されている必要があります。
 
-Paper APIは `compileOnly`、ValhallaMMOとBetterHorsesはサーバー側JARを使用し、shadeしません。ValhallaとBetterHorsesの公開メソッドへのアクセスは各integration adapter内に限定しています。pure logicとCustom Skill YAMLのJUnitテストを含みます。Paper実機と3プラグインを同時に起動した実環境テストは別途必要です。
+通常Perkの報酬はValhalla標準の永続取得リストへ記録し、馬術効果も同じ取得リストを読みます。NG+効果は永続取得したMaster / Legendから判定します。Paper APIは `compileOnly`、ValhallaMMOとBetterHorsesはサーバー側JARを使用し、shadeしません。ValhallaとBetterHorsesの公開メソッドへのアクセスは各integration adapter内に限定しています。pure logicとCustom Skill YAMLのJUnitテストを含みます。Paper 26.2 build 126 / Java 25 / ValhallaMMO 1.10.3 / BetterHorses 6.4によるローカル起動・正常停止を確認しました。プレイヤーによるPerk取得や馬上動作は別途検証が必要です。
