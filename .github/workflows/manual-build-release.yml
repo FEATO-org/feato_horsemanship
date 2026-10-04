@@ -7,12 +7,11 @@ name: Manual build and release
         description: 'Version to build and tag (for example, 0.2.0)'
         type: string
         required: true
-        default: '0.1.0'
       publish_release:
         description: 'Create a tag and publish a GitHub Release'
         type: boolean
         required: true
-        default: false
+        default: true
 
 concurrency:
   group: feato-horsemanship-manual-release

@@ -63,7 +63,7 @@ Paper APIで直接表せない加速立ち上がり、旋回、着地の速度�
 
 ### GitHub Actionsで手動ビルド・リリース
 
-GitHubの **Actions → Manual build and release → Run workflow** で`version`（例: `0.2.0`）を入力できます。`publish_release` をオフにすると、指定バージョンのJARをJava 25でテスト・ビルドし、JAR、`horsemanship.yml`、`SHA256SUMS` を実行結果のArtifactに保存します。オンにすると、デフォルトブランチのコミットに`v0.2.0`形式の注釈付きタグを自動作成し、同じ3ファイルを添付したGitHub Releaseを公開します。
+GitHubの **Actions → Manual build and release → Run workflow** で、空欄の`version`に公開するバージョン（例: `0.2.0`）を入力します。`publish_release` は初期状態でオンです。指定バージョンのJARをJava 25でテスト・ビルドし、デフォルトブランチのコミットに`v0.2.0`形式の注釈付きタグを自動作成して、JAR、`horsemanship.yml`、`SHA256SUMS` を添付したGitHub Releaseを公開します。ビルドのみの場合は`publish_release`をオフにすると、同じ3ファイルを実行結果のArtifactに保存します。
 
 入力した`version`はJAR名、Gradleのproject version、プラグイン内の`plugin.yml`にも使われます。既存タグが別コミットを指す場合は失敗し、同じコミットを指すタグならRelease作成を再試行できます。`-rc1`などの接尾辞付きバージョンはpre-releaseとして公開します。ローカルビルドでは`build.gradle`の既定値`0.1.0`を使用し、`./gradlew -PbuildVersion=0.2.0 clean build`で上書きできます。GitHub側でActionsの実行とRepository contentsへの書き込みが許可されている必要があります。
 
