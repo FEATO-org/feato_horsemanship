@@ -1,6 +1,6 @@
 # FEATO Horsemanship
 
-Paper用のValhallaMMO Custom Skill「馬術 / Horsemanship」です。騎手の成長を担当し、BetterHorsesが管理する馬の遺伝、Trait、Training、base attributeを直接変更しません。標準のActionBarとチャットを使うため、専用クライアントHUDは不要です。
+Paper用のValhallaMMO専用Java Skill/Profile「馬術 / Horsemanship」です。騎手の成長を担当し、BetterHorsesが管理する馬の遺伝、Trait、Training、base attributeを直接変更しません。標準のActionBarとチャットを使うため、専用クライアントHUDは不要です。
 
 ## 対象
 
@@ -13,12 +13,16 @@ Paper用のValhallaMMO Custom Skill「馬術 / Horsemanship」です。騎手の
 
 ## インストール
 
-1. `src/main/resources/horsemanship.yml` をサーバーの `plugins/ValhallaMMO/skills/custom/horsemanship.yml` にコピーします。既存ファイルは自動上書きしません。
-2. `./gradlew clean build` で生成した `build/libs/feato-horsemanship-0.1.0.jar` を `plugins/` に置きます。
-3. ValhallaMMOとFEATO Horsemanshipを含めてサーバーを再起動します。Custom SkillはValhallaMMO起動時に登録されます。
-4. BetterHorsesの `mounted-damage-boost.enabled: false` を設定してください。馬上戦闘の倍率はFEATO Horsemanshipが担当します。
+1. サーバーを停止し、ValhallaMMOのDBと設定をバックアップします。
+2. 旧 `plugins/ValhallaMMO/skills/custom/horsemanship.yml` と `HORSEMANSHIP.yml` をバックアップしてCustom Skillディレクトリ外へ退避します。HORSEMANSHIPを定義する旧YAMLを残さないでください。
+3. 既存のGUI調整済みYAMLを `plugins/FEATOHorsemanship/horsemanship.yml` へ移し、未使用の `stats` セクションを除去します。既存ファイルは自動上書きしません。初回導入ではJARの同梱設定がこの場所へ生成されます。
+4. `./gradlew clean build` で生成したJARへ更新し、ValhallaMMOとFEATO Horsemanshipを含めて完全再起動します。MinecraftやValhallaMMOの `/reload`、Plugin disable/enableによる更新は使用しません。
+5. `HORSEMANSHIP registered with dedicated HorsemanshipSkill/HorsemanshipProfile` のログを確認します。標準 `/skills`、`/valhalla profile HORSEMANSHIP`、`/valhalla exp HORSEMANSHIP 10` を管理者で確認してください。
+6. BetterHorsesの `settings.mounted-damage-boost.enabled: false` を設定してください。馬上戦闘の倍率はFEATO Horsemanshipが担当します。
 
-Valhallaのスキルが未登録の場合、FEATO Horsemanshipは理由をログに出して有効化を中止します。BetterHorsesがない場合はHorsekeepingのみ無効になり、警告を出します。
+ValhallaMMOがenabledになりDBを初期化した後、独自UnlockCondition → Profile → Skillの順で公開API登録します。重複Skill・登録失敗時はsevereログを出してPluginを無効化し、Listenerは登録しません。Lv・EXP・累積EXP・NG+とreset/refundはValhallaMMOが管理します。Perk IDとPowerProfileの通常・永続取得リストを維持し、プレイヤーデータを削除・resetしません。旧EXPの独自移行は行いません。
+
+`/horsemanship reload` は効果設定のみを再読込します。Skill定義、ツリー、JARの変更は完全再起動で反映してください。新基盤から旧YAML方式への切り戻しは、停止中に移行前の整合したDB・設定・JARのバックアップを復元して行ってください。
 
 ## EXPと騎乗
 
@@ -37,7 +41,7 @@ Lv20の「追う」は操縦者がmain handに `LEAD` を持って右クリッ�
 - Combat: Cavalier、Charge!、Mounted Marksman、Veteran Cavalry、Heavy / Light Cavalry、First Impact、Iron Vanguard / Swift Rider
 - Horsekeeping: Horse Sense、Breeder's Insight、Bloodline Study、Horse Whisperer
 
-BreakawayとRelentless Pace、HeavyとLight Cavalry、Iron VanguardとSwift Riderは排他です。ValhallaのCustom Skill読み込み前に独自の公開UnlockConditionを登録し、相手側Perkの取得済み状態を取得画面で確認します。既存の矛盾データ・両取得時には両側の効果と後続perk効果を抑止してログへ警告します。refund/reset後はValhallaの現在の取得状態から再判定します。登録が失敗した場合は警告を出し、実行時保護だけが残ります。Over the FenceとCharge!は追うの速度profileから独立して併用できます。Charge!自体に速度加算はありません。
+BreakawayとRelentless Pace、HeavyとLight Cavalry、Iron VanguardとSwift Riderは排他です。馬術のJava Skill設定読み込み前に独自の公開UnlockConditionを登録し、相手側Perkの取得済み状態を取得画面で確認します。既存の矛盾データ・両取得時には両側の効果と後続perk効果を抑止してログへ警告します。refund/reset後はValhallaの現在の取得状態から再判定します。登録が失敗した場合はPluginを無効化します。Over the FenceとCharge!は追うの速度profileから独立して併用できます。Charge!自体に速度加算はありません。
 
 Iron VanguardはHeavy Cavalryに加えて `HEAVY_WEAPONS:60`、Swift RiderはLight Cavalryに加えて `LIGHT_WEAPONS:60` を要求します。外部スキルのOR条件をYAMLで推測表現せず、仕様で許可された単一路線を採用しました。Mounted Marksmanは `ARCHERY:50`、Breeder's Insightは `FARMING:50`、Bloodline Studyは `FARMING:60` です。
 
@@ -67,4 +71,6 @@ GitHubの **Actions → Manual build and release → Run workflow** で、空欄
 
 入力した`version`はJAR名、Gradleのproject version、プラグイン内の`plugin.yml`にも使われます。既存タグが別コミットを指す場合は失敗し、同じコミットを指すタグならRelease作成を再試行できます。`-rc1`などの接尾辞付きバージョンはpre-releaseとして公開します。ローカルビルドでは`build.gradle`の既定値`0.1.0`を使用し、`./gradlew -PbuildVersion=0.2.0 clean build`で上書きできます。GitHub側でActionsの実行とRepository contentsへの書き込みが許可されている必要があります。
 
-通常Perkの報酬はValhalla標準の永続取得リストへ記録し、馬術効果も同じ取得リストを読みます。NG+効果は永続取得したMaster / Legendから判定します。Paper APIは `compileOnly`、ValhallaMMOとBetterHorsesはサーバー側JARを使用し、shadeしません。ValhallaとBetterHorsesの公開メソッドへのアクセスは各integration adapter内に限定しています。pure logicとCustom Skill YAMLのJUnitテストを含みます。Paper 26.2 build 126 / Java 25 / ValhallaMMO 1.10.3 / BetterHorses 6.4によるローカル起動・正常停止を確認しました。プレイヤーによるPerk取得や馬上動作は別途検証が必要です。
+通常Perkの報酬はValhalla標準の永続取得リストへ記録し、馬術効果も同じ取得リストを読みます。NG+効果は永続取得したMaster / Legendから判定します。Paper APIと固定したValhallaMMO 1.10.3 APIは `compileOnly` で、shadeしません。ビルドはValhallaMMOの固定配布URLからAPI JARを `local/libs/` に取得し、SHA-256を照合します。BetterHorsesはサーバー側JARを使用します。ValhallaとBetterHorsesの公開メソッドへのアクセスは各integration adapter内に限定しています。pure logicと専用Skill/Profile・Skill YAMLのJUnitテストを含みます。Paper 26.2 build 126 / Java 25 / ValhallaMMO 1.10.3 / BetterHorses 6.4によるローカル起動・正常停止を確認しました。プレイヤーによるPerk取得や馬上動作は別途検証が必要です。
+
+専用Skill/Profile修正版の検証範囲と未確認の受入試験は [検証記録](docs/profile-validation.md) を参照してください。

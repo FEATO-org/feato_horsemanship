@@ -1,6 +1,10 @@
 package jp.feato.horsemanship;
 
 import jp.feato.horsemanship.config.HorsemanshipConfig;
+import jp.feato.horsemanship.integration.valhalla.skill.HorsemanshipProfile;
+import jp.feato.horsemanship.integration.valhalla.skill.HorsemanshipSkill;
+import me.athlaeos.valhallammo.playerstats.profiles.ProfileRegistry;
+import me.athlaeos.valhallammo.skills.skills.SkillRegistry;
 import jp.feato.horsemanship.integration.valhalla.ValhallaAdapter;
 import jp.feato.horsemanship.integration.valhalla.ExclusiveUnlockRegistration;
 import jp.feato.horsemanship.integration.betterhorses.BetterHorsesAdapter;
@@ -32,20 +36,6 @@ public final class HorsemanshipPlugin extends JavaPlugin implements TabExecutor 
     private HorsemanshipConfig config;
     private HorsekeepingCommand horsekeepingCommand;
     private HorsekeepingListener horsekeepingListener;
-    private boolean exclusiveUnlockRegistered;
-    @Override public void onLoad() {
-        Plugin valhalla = Bukkit.getPluginManager().getPlugin("ValhallaMMO");
-        if (valhalla == null) {
-            getLogger().warning("ValhallaMMO is unavailable during load; acquisition-time exclusion is disabled");
-            return;
-        }
-        try {
-            ExclusiveUnlockRegistration.register(valhalla);
-            exclusiveUnlockRegistered = true;
-        } catch (ReflectiveOperationException | LinkageError exception) {
-            getLogger().warning("Could not register acquisition-time exclusion: " + exception.getMessage());
-        }
-    }
     @Override public void onEnable() {
         saveDefaultConfig();
         reloadSettings();
@@ -55,12 +45,23 @@ public final class HorsemanshipPlugin extends JavaPlugin implements TabExecutor 
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
-        if (!exclusiveUnlockRegistered)
-            getLogger().warning("Perk acquisition-time exclusion is unavailable; runtime conflict protection remains active");
         ValhallaAdapter valhalla;
-        try { valhalla = new ValhallaAdapter(dependency); }
-        catch (ReflectiveOperationException | IllegalStateException exception) {
-            getLogger().severe("Cannot initialize Valhalla integration: " + exception.getMessage());
+        try {
+            if (SkillRegistry.getSkill("HORSEMANSHIP") != null)
+                throw new IllegalStateException("HORSEMANSHIP is already registered by another skill. Remove the legacy ValhallaMMO skills/custom horsemanship.yml (including HORSEMANSHIP.yml).");
+            if (ProfileRegistry.getPersistence() == null)
+                throw new IllegalStateException("ValhallaMMO profile database is not initialized");
+            ExclusiveUnlockRegistration.register(dependency);
+            ProfileRegistry.registerProfileType(new HorsemanshipProfile(null));
+            HorsemanshipSkill skill = new HorsemanshipSkill(this);
+            SkillRegistry.registerSkill(skill);
+            if (SkillRegistry.getSkill("HORSEMANSHIP") != skill
+                    || skill.getProfileType() != HorsemanshipProfile.class)
+                throw new IllegalStateException("HORSEMANSHIP dedicated Skill/Profile registration failed");
+            valhalla = new ValhallaAdapter(dependency);
+            getLogger().info("HORSEMANSHIP registered with dedicated HorsemanshipSkill/HorsemanshipProfile");
+        } catch (ReflectiveOperationException | RuntimeException | LinkageError exception) {
+            getLogger().log(java.util.logging.Level.SEVERE, "Cannot initialize Valhalla integration", exception);
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }

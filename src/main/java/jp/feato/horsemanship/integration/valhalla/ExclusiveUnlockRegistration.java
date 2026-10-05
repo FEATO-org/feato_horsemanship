@@ -10,7 +10,7 @@ import java.lang.reflect.Proxy;
 import java.util.Collection;
 import java.util.List;
 
-/** Registers a public Valhalla unlock condition before Valhalla loads custom skills. */
+/** Registers a public Valhalla unlock condition before Horsemanship loads its skill configuration. */
 public final class ExclusiveUnlockRegistration {
     public static final String KEY = "horsemanship_exclusive";
 

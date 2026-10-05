@@ -27,6 +27,7 @@ class SkillYamlTest {
         assertNotNull(resource);
         var yaml = YamlConfiguration.loadConfiguration(new InputStreamReader(resource, StandardCharsets.UTF_8));
         assertTrue(yaml.getBoolean("enabled"));
+        assertFalse(yaml.contains("stats"));
         assertEquals(100, yaml.getInt("experience.max_level"));
         assertNotNull(yaml.getConfigurationSection("perks"));
         assertTrue(yaml.getConfigurationSection("perks").getKeys(false).size() >= 40);
