@@ -6,6 +6,17 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BalanceMathTest {
+    @Test void movementExperienceDoesNotRequireFirstSaddle() {
+        var resource = getClass().getClassLoader().getResourceAsStream("config.yml");
+        assertNotNull(resource);
+        var config = org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(
+            new java.io.InputStreamReader(resource, java.nio.charset.StandardCharsets.UTF_8));
+        double amount = config.getDouble("experience.movement.exp-per-batch");
+        double cap = config.getDouble("experience.movement.max-multiplier");
+        assertEquals(100.0, config.getDouble("experience.movement.batch-distance"));
+        assertEquals(10.0, amount * BalanceMath.capExperienceMultiplier(1.0, cap), 0.000001);
+        assertEquals(10.5, amount * BalanceMath.capExperienceMultiplier(1.0 + config.getDouble("experience.first-saddle-bonus"), cap), 0.000001);
+    }
     @Test void trailwiseBonusRespectsTotalExperienceCap() {
         assertFalse(BalanceMath.trailwiseActive(999.9, 1000.0));
         assertTrue(BalanceMath.trailwiseActive(1000.0, 1000.0));

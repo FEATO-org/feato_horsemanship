@@ -5,7 +5,28 @@ repositories {
     maven { url = uri('https://repo.papermc.io/repository/maven-public/') }
     mavenCentral()
 }
+def valhallaApi = layout.projectDirectory.file('local/libs/ValhallaMMO_1.10.3.jar')
+tasks.register('prepareValhallaApi') {
+    outputs.file(valhallaApi)
+    doLast {
+        def target = valhallaApi.asFile
+        target.parentFile.mkdirs()
+        if (!target.exists()) {
+            new URL('https://cdn.modrinth.com/data/rxrgsoud/versions/GkeSDJSq/ValhallaMMO_1.10.3.jar').withInputStream { input ->
+                target.withOutputStream { output -> output << input }
+            }
+        }
+        def hash = java.security.MessageDigest.getInstance('SHA-256').digest(target.bytes).encodeHex().toString()
+        if (hash != 'a3e94b75cf3d050769bba63dcf1a10df1db0b286c28cc2e11a2ff85acba403fc') {
+            target.delete()
+            throw new GradleException('ValhallaMMO 1.10.3 API checksum mismatch')
+        }
+    }
+}
+def valhallaDependency = files(valhallaApi).builtBy(tasks.named('prepareValhallaApi'))
 dependencies {
+    compileOnly valhallaDependency
+    testImplementation valhallaDependency
     compileOnly 'io.papermc.paper:paper-api:26.2.build.126-stable'
     testImplementation 'io.papermc.paper:paper-api:26.2.build.126-stable'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.13.4'

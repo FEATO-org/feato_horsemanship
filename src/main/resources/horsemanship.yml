@@ -6,76 +6,29 @@ description: '&fHorsemanship: 騎手の技術を育てる'
 levelbar_title: '&6馬術 Lv %lv_current% &7%exp_current%/%exp_next%'
 levelbar_color: YELLOW
 levelbar_style: SOLID
-stats:
-  ints:
-    first_saddle: 0
-    rein_sense: 0
-    urge: 0
-    fleetfoot: 0
-    long_haul: 0
-    steady_hands: 0
-    cavalier: 0
-    horse_sense: 0
-    good_hands: 0
-    breakaway: 0
-    relentless_pace: 0
-    over_the_fence: 0
-    charge: 0
-    full_gallop: 0
-    trailwise: 0
-    surefooted: 0
-    mounted_marksman: 0
-    breeders_insight: 0
-    seasoned_rider: 0
-    quick_response: 0
-    steady_pace: 0
-    calm_rein: 0
-    veteran_cavalry: 0
-    lightning_start: 0
-    second_wind: 0
-    fine_control: 0
-    heavy_cavalry: 0
-    light_cavalry: 0
-    bloodline_study: 0
-    mutual_trust: 0
-    ride_the_wind: 0
-    iron_journey: 0
-    sure_landing: 0
-    first_impact: 0
-    windborne: 0
-    endless_road: 0
-    master_of_reins: 0
-    iron_vanguard: 0
-    swift_rider: 0
-    horse_whisperer: 0
-    one_as_one: 0
-  floats: {}
-  doubles: {}
-  booleans: {}
-  sets: {}
 starting_perks: {}
 experience:
   max_level: 100
   exp_level_curve: '(%level% + 75 * 2^(%level%/7.6)) + 300'
   daily_limit: -1
-starting_coordinates: "0,0"
+starting_coordinates: "0,3"
 navigable: true
 perks:
   first_saddle:
     icon: SADDLE
-    coords: "0,0"
+    coords: "0,6"
     name: "&e鞍上の第一歩"
-    description: "&7Lv0 馬術perk"
+    description: "&7基礎: 騎乗を始める/n&7操縦速度ペナルティを-5%から-2%へ/n&7移動EXP +5%"
     cost: 0
     required_lv: 0
     perk_rewards:
       p:perks_unlocked_add:
         - first_saddle
   rein_sense:
-    icon: LEAD
-    coords: "1,0"
+    icon: CARROT_ON_A_STICK
+    coords: "2,6"
     name: "&e手綱の心得"
-    description: "&7Lv10 馬術perk"
+    description: "&7基礎: 手綱を覚える/n&7操縦速度ペナルティを解消/n&7移動EXP +5%、騎手・馬の落下ダメージ -5%"
     cost: 1
     required_lv: 10
     perk_rewards:
@@ -83,11 +36,17 @@ perks:
         - rein_sense
     requireperk_all:
       - first_saddle
+    connection_line:
+      '1':
+        position: '1,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   urge:
-    icon: SUGAR
-    coords: "2,0"
+    icon: LEAD
+    coords: "4,6"
     name: "&e追う"
-    description: "&7Lv20 馬術perk"
+    description: "&7Active Ability / 専門系統の分岐点/n&7操縦中、メインハンドのリードを右クリック/n&7速度 +6%、持続5秒、応答1秒、再使用35秒/n&7終了時15%で疲労: 3秒間、速度 -10%"
     cost: 1
     required_lv: 20
     perk_rewards:
@@ -95,11 +54,17 @@ perks:
         - urge
     requireperk_all:
       - rein_sense
+    connection_line:
+      '1':
+        position: '3,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   fleetfoot:
     icon: FEATHER
-    coords: "3,0"
+    coords: "6,0"
     name: "&e駿足"
-    description: "&7Lv30 馬術perk"
+    description: "&7機動: 「追う」から分岐（長駆と両立可能）/n&7操縦速度 +4%、追うの応答 -0.1秒"
     cost: 1
     required_lv: 30
     perk_rewards:
@@ -108,10 +73,10 @@ perks:
     requireperk_all:
       - urge
   long_haul:
-    icon: WHEAT
-    coords: "4,0"
+    icon: HAY_BLOCK
+    coords: "6,3"
     name: "&e長駆"
-    description: "&7Lv30 馬術perk"
+    description: "&7持久: 「追う」から分岐（駿足と両立可能）/n&7連続騎乗30秒・60秒で速度を各+1%/n&7移動EXP +2%、疲労の速度ペナルティを1ポイント軽減"
     cost: 1
     required_lv: 30
     perk_rewards:
@@ -120,10 +85,10 @@ perks:
     requireperk_all:
       - urge
   steady_hands:
-    icon: LEAD
-    coords: "5,0"
+    icon: TRIPWIRE_HOOK
+    coords: "6,9"
     name: "&e確かな手綱"
-    description: "&7Lv30 馬術perk"
+    description: "&7技術: 「追う」から分岐/n&7追うの応答 -0.1秒、疲労率 -2ポイント/n&7騎手・馬の落下ダメージ -5%"
     cost: 1
     required_lv: 30
     perk_rewards:
@@ -133,9 +98,9 @@ perks:
       - urge
   cavalier:
     icon: IRON_SWORD
-    coords: "6,0"
+    coords: "6,14"
     name: "&e騎兵"
-    description: "&7Lv30 馬術perk"
+    description: "&7馬上戦闘: 「追う」から分岐/n&7馬上近接ダメージ +6%/n&7騎手・馬のノックバック耐性 +0.05"
     cost: 1
     required_lv: 30
     perk_rewards:
@@ -144,10 +109,10 @@ perks:
     requireperk_all:
       - urge
   horse_sense:
-    icon: HAY_BLOCK
-    coords: "7,0"
+    icon: BRUSH
+    coords: "6,18"
     name: "&e馬を見る目"
-    description: "&7Lv30 馬術perk"
+    description: "&7馬管理: 「追う」から分岐/n&7/horsemanship inspect で馬を確認/n&7ブラッシング・給餌の訓練補助 +2%/n&7給餌回復 +2%（BetterHorsesの馬）"
     cost: 1
     required_lv: 30
     perk_rewards:
@@ -156,10 +121,10 @@ perks:
     requireperk_all:
       - urge
   good_hands:
-    icon: SADDLE
-    coords: "0,1"
+    icon: GOLDEN_CARROT
+    coords: "8,6"
     name: "&e巧者の手綱"
-    description: "&7Lv40 馬術perk"
+    description: "&7基礎: 追うの応答 -0.1秒/n&7移動EXP +1%、騎手・馬の落下ダメージ -3%"
     cost: 1
     required_lv: 40
     perk_rewards:
@@ -167,12 +132,28 @@ perks:
         - good_hands
     requireperk_all:
       - urge
+    connection_line:
+      '1':
+        position: '5,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '2':
+        position: '6,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '7,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   breakaway:
     horsemanship_exclusive: relentless_pace
     icon: RABBIT_FOOT
-    coords: "1,1"
+    coords: "8,0"
     name: "&e抜け出し"
-    description: "&7Lv40 馬術perk"
+    description: "&7「追う」を変化させる / 短距離型/n&7速度 +15%、持続3秒、再使用45秒/n&7絶えぬ追いと排他"
     cost: 1
     required_lv: 40
     perk_rewards:
@@ -180,12 +161,18 @@ perks:
         - breakaway
     requireperk_all:
       - fleetfoot
+    connection_line:
+      '1':
+        position: '7,0'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   relentless_pace:
     horsemanship_exclusive: breakaway
     icon: GOLDEN_CARROT
-    coords: "2,1"
+    coords: "8,3"
     name: "&e絶えぬ追い"
-    description: "&7Lv40 馬術perk"
+    description: "&7「追う」を変化させる / 長距離型/n&7速度 +5%、持続15秒、再使用30秒/n&7抜け出しと排他"
     cost: 1
     required_lv: 40
     perk_rewards:
@@ -193,11 +180,17 @@ perks:
         - relentless_pace
     requireperk_all:
       - long_haul
+    connection_line:
+      '1':
+        position: '7,3'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   over_the_fence:
-    icon: OAK_FENCE
-    coords: "3,1"
+    icon: SLIME_BALL
+    coords: "8,9"
     name: "&e飛越"
-    description: "&7Lv40 馬術perk"
+    description: "&7「追う」に追加効果 / 技術/n&7追う中の跳躍: 水平 +25%、垂直 +10%/n&7着地で失った水平速度の10%を補助回復"
     cost: 1
     required_lv: 40
     perk_rewards:
@@ -205,11 +198,17 @@ perks:
         - over_the_fence
     requireperk_all:
       - steady_hands
+    connection_line:
+      '1':
+        position: '7,9'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   charge:
     icon: SHIELD
-    coords: "4,1"
+    coords: "8,14"
     name: "&e突撃号令"
-    description: "&7Lv40 馬術perk"
+    description: "&7「追う」に追加効果 / 馬上戦闘/n&7追う中: 騎手ダメージ -7%、馬ダメージ -10%/n&7騎手・馬のノックバック耐性 +0.10"
     cost: 1
     required_lv: 40
     perk_rewards:
@@ -217,11 +216,17 @@ perks:
         - charge
     requireperk_all:
       - cavalier
+    connection_line:
+      '1':
+        position: '7,14'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   full_gallop:
-    icon: IRON_HORSE_ARMOR
-    coords: "5,1"
+    icon: SUGAR
+    coords: "10,0"
     name: "&e全速駆け"
-    description: "&7Lv50 馬術perk"
+    description: "&7機動: 操縦速度 +3%/n&7追うの速度補正を終了前0.5秒で滑らかに減衰"
     cost: 1
     required_lv: 50
     perk_rewards:
@@ -229,11 +234,17 @@ perks:
         - full_gallop
     requireperk_all:
       - breakaway
+    connection_line:
+      '1':
+        position: '9,0'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   trailwise:
     icon: MAP
-    coords: "6,1"
+    coords: "10,3"
     name: "&e遠乗りの心得"
-    description: "&7追うCD短縮、長距離騎乗中の馬術EXP増加"
+    description: "&7持久: 追うの再使用 -2秒/n&7同じ馬で1000ブロック以上騎乗後、移動EXP +3%"
     cost: 1
     required_lv: 50
     perk_rewards:
@@ -241,11 +252,17 @@ perks:
         - trailwise
     requireperk_all:
       - relentless_pace
+    connection_line:
+      '1':
+        position: '9,3'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   surefooted:
     icon: LEATHER_BOOTS
-    coords: "7,1"
+    coords: "10,9"
     name: "&e足取り確か"
-    description: "&7Lv50 馬術perk"
+    description: "&7技術: 通常跳躍の水平 +2%、垂直 +1%/n&7着地で失った水平速度の5%を補助回復"
     cost: 1
     required_lv: 50
     perk_rewards:
@@ -253,11 +270,17 @@ perks:
         - surefooted
     requireperk_all:
       - over_the_fence
+    connection_line:
+      '1':
+        position: '9,9'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   mounted_marksman:
     icon: BOW
-    coords: "0,2"
+    coords: "10,14"
     name: "&e騎射の心得"
-    description: "&7Lv50 馬術perk"
+    description: "&7馬上戦闘: 馬上弓射撃の照準補正 +10%"
     cost: 1
     required_lv: 50
     perk_rewards:
@@ -267,11 +290,37 @@ perks:
       - cavalier
     other_levels_required:
       - ARCHERY:50
+    connection_line:
+      '1':
+        position: '6,15'
+        locked: GRAY_DYE:1172716
+        unlockable: ORANGE_DYE:1172816
+        unlocked: LIME_DYE:1172916
+      '2':
+        position: '7,15'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '8,15'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '4':
+        position: '9,15'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '5':
+        position: '10,15'
+        locked: GRAY_DYE:1172718
+        unlockable: ORANGE_DYE:1172818
+        unlocked: LIME_DYE:1172918
   breeders_insight:
     icon: WHEAT
-    coords: "1,2"
+    coords: "10,18"
     name: "&e生産者の眼"
-    description: "&7Lv50 馬術perk"
+    description: "&7馬管理: /horsemanship parent・predict を解放/n&7親を記録し、子の能力範囲を予測/n&7給餌回復 +2%、疲労時間 -0.1秒"
     cost: 1
     required_lv: 50
     perk_rewards:
@@ -281,11 +330,27 @@ perks:
       - horse_sense
     other_levels_required:
       - FARMING:50
+    connection_line:
+      '1':
+        position: '7,18'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '2':
+        position: '8,18'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '9,18'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   seasoned_rider:
     icon: SADDLE
-    coords: "2,2"
+    coords: "12,6"
     name: "&e熟練騎手"
-    description: "&7Lv60 馬術perk"
+    description: "&7基礎: 追うの応答 -0.1秒、疲労時間 -0.1秒/n&7旋回で失った水平速度の3%を補助回復"
     cost: 1
     required_lv: 60
     perk_rewards:
@@ -293,11 +358,27 @@ perks:
         - seasoned_rider
     requireperk_all:
       - good_hands
+    connection_line:
+      '1':
+        position: '9,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '2':
+        position: '10,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '11,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   quick_response:
-    icon: CLOCK
-    coords: "3,2"
+    icon: RABBIT_HIDE
+    coords: "12,0"
     name: "&e即応"
-    description: "&7Lv60 馬術perk"
+    description: "&7機動: 追うの応答 -0.1秒、再使用 -2秒"
     cost: 1
     required_lv: 60
     perk_rewards:
@@ -305,11 +386,17 @@ perks:
         - quick_response
     requireperk_all:
       - full_gallop
+    connection_line:
+      '1':
+        position: '11,0'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   steady_pace:
     icon: COMPASS
-    coords: "4,2"
+    coords: "12,3"
     name: "&e巡航の極意"
-    description: "&7Lv60 馬術perk"
+    description: "&7持久: 連続騎乗120秒で速度 +1%/n&7疲労の速度ペナルティを1ポイント軽減"
     cost: 1
     required_lv: 60
     perk_rewards:
@@ -317,11 +404,17 @@ perks:
         - steady_pace
     requireperk_all:
       - trailwise
+    connection_line:
+      '1':
+        position: '11,3'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   calm_rein:
     icon: LEAD
-    coords: "5,2"
+    coords: "12,9"
     name: "&e冷静な手綱"
-    description: "&7Lv60 馬術perk"
+    description: "&7技術: 追うの応答 -0.1秒、疲労率 -2ポイント"
     cost: 1
     required_lv: 60
     perk_rewards:
@@ -329,11 +422,17 @@ perks:
         - calm_rein
     requireperk_all:
       - surefooted
+    connection_line:
+      '1':
+        position: '11,9'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   veteran_cavalry:
     icon: IRON_SWORD
-    coords: "6,2"
+    coords: "12,14"
     name: "&e古参騎兵"
-    description: "&7Lv60 馬術perk"
+    description: "&7馬上戦闘: 馬上近接ダメージ +4%"
     cost: 1
     required_lv: 60
     perk_rewards:
@@ -341,11 +440,47 @@ perks:
         - veteran_cavalry
     requireperk_all:
       - cavalier
+    connection_line:
+      '1':
+        position: '6,13'
+        locked: GRAY_DYE:1172717
+        unlockable: ORANGE_DYE:1172817
+        unlocked: LIME_DYE:1172917
+      '2':
+        position: '7,13'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '8,13'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '4':
+        position: '9,13'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '5':
+        position: '10,13'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '6':
+        position: '11,13'
+        locked: GRAY_DYE:1172723
+        unlockable: ORANGE_DYE:1172823
+        unlocked: LIME_DYE:1172923
+      '7':
+        position: '11,14'
+        locked: GRAY_DYE:1172712
+        unlockable: ORANGE_DYE:1172812
+        unlocked: LIME_DYE:1172912
   lightning_start:
     icon: BLAZE_POWDER
-    coords: "7,2"
+    coords: "14,0"
     name: "&e電光の発進"
-    description: "&7Lv70 馬術perk"
+    description: "&7機動: 追う発動後1秒間、初速を補助/n&7移動ごと水平速度 +0.005（移動速度属性値まで）"
     cost: 1
     required_lv: 70
     perk_rewards:
@@ -353,11 +488,17 @@ perks:
         - lightning_start
     requireperk_all:
       - quick_response
+    connection_line:
+      '1':
+        position: '13,0'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   second_wind:
     icon: GOLDEN_APPLE
-    coords: "0,3"
+    coords: "14,3"
     name: "&e息を吹き返す"
-    description: "&7Lv70 馬術perk"
+    description: "&7持久: 追うの持続 +0.25秒、疲労時間 -0.5秒"
     cost: 1
     required_lv: 70
     perk_rewards:
@@ -365,11 +506,17 @@ perks:
         - second_wind
     requireperk_all:
       - steady_pace
+    connection_line:
+      '1':
+        position: '13,3'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   fine_control:
     icon: TARGET
-    coords: "1,3"
+    coords: "14,9"
     name: "&e精密操作"
-    description: "&7Lv70 馬術perk"
+    description: "&7技術: 旋回で失った水平速度の8%を補助回復"
     cost: 1
     required_lv: 70
     perk_rewards:
@@ -377,12 +524,18 @@ perks:
         - fine_control
     requireperk_all:
       - calm_rein
+    connection_line:
+      '1':
+        position: '13,9'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   heavy_cavalry:
     horsemanship_exclusive: light_cavalry
     icon: IRON_CHESTPLATE
-    coords: "2,3"
+    coords: "14,13"
     name: "&e重装騎兵"
-    description: "&7Lv70 馬術perk"
+    description: "&7馬上戦闘: 突撃号令のダメージ軽減 +2ポイント/n&7軽装騎兵と排他"
     cost: 1
     required_lv: 70
     perk_rewards:
@@ -392,12 +545,23 @@ perks:
       - veteran_cavalry
     other_levels_required:
       - HEAVY_ARMOR:50
+    connection_line:
+      '1':
+        position: '12,13'
+        locked: GRAY_DYE:1172717
+        unlockable: ORANGE_DYE:1172817
+        unlocked: LIME_DYE:1172917
+      '2':
+        position: '13,13'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   light_cavalry:
     horsemanship_exclusive: heavy_cavalry
-    icon: LEATHER_CHESTPLATE
-    coords: "3,3"
+    icon: CHAINMAIL_CHESTPLATE
+    coords: "14,15"
     name: "&e軽装騎兵"
-    description: "&7Lv70 馬術perk"
+    description: "&7馬上戦闘: 追うの応答 -0.05秒/n&7旋回で失った水平速度の5%を補助回復/n&7重装騎兵と排他"
     cost: 1
     required_lv: 70
     perk_rewards:
@@ -407,11 +571,22 @@ perks:
       - veteran_cavalry
     other_levels_required:
       - LIGHT_ARMOR:50
+    connection_line:
+      '1':
+        position: '12,15'
+        locked: GRAY_DYE:1172716
+        unlockable: ORANGE_DYE:1172816
+        unlocked: LIME_DYE:1172916
+      '2':
+        position: '13,15'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   bloodline_study:
-    icon: BOOK
-    coords: "4,3"
+    icon: WRITABLE_BOOK
+    coords: "14,18"
     name: "&e血統研究"
-    description: "&7Lv70 馬術perk"
+    description: "&7馬管理: 訓練補助 +2%、疲労時間 -0.1秒/n&7inspect・predict に繁殖CDを表示/n&7predict にTrait確率を表示"
     cost: 1
     required_lv: 70
     perk_rewards:
@@ -421,11 +596,27 @@ perks:
       - breeders_insight
     other_levels_required:
       - FARMING:60
+    connection_line:
+      '1':
+        position: '11,18'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '2':
+        position: '12,18'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '13,18'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   mutual_trust:
     icon: HEART_OF_THE_SEA
-    coords: "5,3"
+    coords: "16,6"
     name: "&e信頼の手綱"
-    description: "&7Lv80 馬術perk"
+    description: "&7基礎: 疲労率 -1ポイント、疲労時間 -0.1秒/n&7追うの速度補正を終了前0.5秒で滑らかに減衰"
     cost: 1
     required_lv: 80
     perk_rewards:
@@ -433,11 +624,27 @@ perks:
         - mutual_trust
     requireperk_all:
       - seasoned_rider
+    connection_line:
+      '1':
+        position: '13,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '2':
+        position: '14,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '15,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   ride_the_wind:
     icon: ELYTRA
-    coords: "6,3"
+    coords: "16,0"
     name: "&e風に乗る"
-    description: "&7Lv80 馬術perk"
+    description: "&7機動: 旋回で失った水平速度の10%を補助回復"
     cost: 1
     required_lv: 80
     perk_rewards:
@@ -445,11 +652,17 @@ perks:
         - ride_the_wind
     requireperk_all:
       - lightning_start
+    connection_line:
+      '1':
+        position: '15,0'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   iron_journey:
-    icon: IRON_HORSE_ARMOR
-    coords: "7,3"
+    icon: CLOCK
+    coords: "16,3"
     name: "&e不屈の遠乗り"
-    description: "&7Lv80 馬術perk"
+    description: "&7持久: 移動EXP +2%、操縦中の馬の回復 +2%"
     cost: 1
     required_lv: 80
     perk_rewards:
@@ -457,11 +670,17 @@ perks:
         - iron_journey
     requireperk_all:
       - second_wind
+    connection_line:
+      '1':
+        position: '15,3'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   sure_landing:
     icon: SLIME_BLOCK
-    coords: "0,4"
+    coords: "16,9"
     name: "&e確かな着地"
-    description: "&7Lv80 馬術perk"
+    description: "&7技術: 騎手・馬の落下ダメージ -5%/n&7着地で失った水平速度の8%を補助回復"
     cost: 1
     required_lv: 80
     perk_rewards:
@@ -469,11 +688,17 @@ perks:
         - sure_landing
     requireperk_all:
       - fine_control
+    connection_line:
+      '1':
+        position: '15,9'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   first_impact:
     icon: DIAMOND_SWORD
-    coords: "1,4"
+    coords: "16,14"
     name: "&e初撃"
-    description: "&7Lv80 馬術perk"
+    description: "&7馬上戦闘: 追う中、水平速度0.20以上で初撃強化/n&7初回近接ダメージ +5%、ノックバック +0.15"
     cost: 1
     required_lv: 80
     perk_rewards:
@@ -482,11 +707,32 @@ perks:
     requireperk_one:
       - heavy_cavalry
       - light_cavalry
+    connection_line:
+      '1':
+        position: '15,13'
+        locked: GRAY_DYE:1172723
+        unlockable: ORANGE_DYE:1172823
+        unlocked: LIME_DYE:1172923
+      '2':
+        position: '15,14'
+        locked: GRAY_DYE:1172712
+        unlockable: ORANGE_DYE:1172812
+        unlocked: LIME_DYE:1172912
+      '3':
+        position: '15,15'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '4':
+        position: '16,15'
+        locked: GRAY_DYE:1172718
+        unlockable: ORANGE_DYE:1172818
+        unlocked: LIME_DYE:1172918
   windborne:
     icon: WIND_CHARGE
-    coords: "2,4"
+    coords: "18,0"
     name: "&e疾風一体"
-    description: "&7Lv90 馬術perk"
+    description: "&7機動: 追うの応答 -0.05秒/n&7旋回で失った水平速度の10%を補助回復/n&7追うの速度補正を終了前0.5秒で滑らかに減衰"
     cost: 1
     required_lv: 90
     perk_rewards:
@@ -494,11 +740,17 @@ perks:
         - windborne
     requireperk_all:
       - ride_the_wind
+    connection_line:
+      '1':
+        position: '17,0'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   endless_road:
     icon: RECOVERY_COMPASS
-    coords: "3,4"
+    coords: "18,3"
     name: "&e果てなき道"
-    description: "&7Lv90 馬術perk"
+    description: "&7持久: 巡航速度の段階到達時間を15%短縮/n&7旋回で失った水平速度の3%を補助回復"
     cost: 1
     required_lv: 90
     perk_rewards:
@@ -506,11 +758,17 @@ perks:
         - endless_road
     requireperk_all:
       - iron_journey
+    connection_line:
+      '1':
+        position: '17,3'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   master_of_reins:
-    icon: LEAD
-    coords: "4,4"
+    icon: RECOVERY_COMPASS
+    coords: "18,9"
     name: "&e手綱の達人"
-    description: "&7Lv90 馬術perk"
+    description: "&7技術: 追うの応答 -0.05秒、疲労率 -1ポイント/n&7通常跳躍の水平・垂直 +1%/n&7旋回8%・着地5%の失速を補助回復"
     cost: 1
     required_lv: 90
     perk_rewards:
@@ -518,12 +776,18 @@ perks:
         - master_of_reins
     requireperk_all:
       - sure_landing
+    connection_line:
+      '1':
+        position: '17,9'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   iron_vanguard:
     horsemanship_exclusive: swift_rider
     icon: NETHERITE_CHESTPLATE
-    coords: "5,4"
+    coords: "18,13"
     name: "&e鉄騎先鋒"
-    description: "&7Lv90 馬術perk"
+    description: "&7馬上戦闘: 突撃号令のダメージ軽減 +2ポイント/n&7初撃のノックバック +0.10/n&7疾駆戦騎と排他"
     cost: 1
     required_lv: 90
     perk_rewards:
@@ -533,12 +797,38 @@ perks:
       - heavy_cavalry
     other_levels_required:
       - HEAVY_WEAPONS:60
+    connection_line:
+      '1':
+        position: '14,12'
+        locked: GRAY_DYE:1172717
+        unlockable: ORANGE_DYE:1172817
+        unlocked: LIME_DYE:1172917
+      '2':
+        position: '15,12'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '16,12'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '4':
+        position: '17,12'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '5':
+        position: '18,12'
+        locked: GRAY_DYE:1172719
+        unlockable: ORANGE_DYE:1172819
+        unlocked: LIME_DYE:1172919
   swift_rider:
     horsemanship_exclusive: iron_vanguard
     icon: DIAMOND_BOOTS
-    coords: "6,4"
+    coords: "18,15"
     name: "&e疾駆戦騎"
-    description: "&7Lv90 馬術perk"
+    description: "&7馬上戦闘: 追うの応答 -0.05秒/n&7旋回で失った水平速度の5%を補助回復/n&7鉄騎先鋒と排他"
     cost: 1
     required_lv: 90
     perk_rewards:
@@ -548,11 +838,37 @@ perks:
       - light_cavalry
     other_levels_required:
       - LIGHT_WEAPONS:60
+    connection_line:
+      '1':
+        position: '14,16'
+        locked: GRAY_DYE:1172716
+        unlockable: ORANGE_DYE:1172816
+        unlocked: LIME_DYE:1172916
+      '2':
+        position: '15,16'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '16,16'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '4':
+        position: '17,16'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '5':
+        position: '18,16'
+        locked: GRAY_DYE:1172718
+        unlockable: ORANGE_DYE:1172818
+        unlocked: LIME_DYE:1172918
   horse_whisperer:
     icon: GOLDEN_CARROT
-    coords: "7,4"
+    coords: "18,18"
     name: "&e名伯楽"
-    description: "&7Lv90 馬術perk"
+    description: "&7馬管理: 訓練補助・給餌回復を各+2%/n&7疲労時間 -0.1秒、predict に親の能力比較を表示"
     cost: 1
     required_lv: 90
     perk_rewards:
@@ -560,11 +876,27 @@ perks:
         - horse_whisperer
     requireperk_all:
       - bloodline_study
+    connection_line:
+      '1':
+        position: '15,18'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '2':
+        position: '16,18'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '17,18'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   one_as_one:
     icon: NETHER_STAR
-    coords: "0,5"
+    coords: "20,6"
     name: "&e人馬一体"
-    description: "&7Lv100 馬術perk"
+    description: "&7基礎の到達点: 追う終了時、疲労しなければ50%で発動/n&74秒間、追うの速度補正の25%を保持/n&7発動中は旋回・着地で失った水平速度の10%を補助回復"
     cost: 1
     required_lv: 100
     perk_rewards:
@@ -572,9 +904,25 @@ perks:
         - one_as_one
     requireperk_all:
       - mutual_trust
+    connection_line:
+      '1':
+        position: '17,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '2':
+        position: '18,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
+      '3':
+        position: '19,6'
+        locked: GRAY_DYE:1172707
+        unlockable: ORANGE_DYE:1172807
+        unlocked: LIME_DYE:1172907
   ng_plus_master:
     icon: TOTEM_OF_UNDYING
-    coords: "0,6"
+    coords: "0,20"
     name: "&6マスター"
     description: "&7NG+1: 永続的な馬術熟練"
     cost: 0
@@ -590,7 +938,7 @@ perks:
         - ng_plus_master
   ng_plus_legend:
     icon: NETHER_STAR
-    coords: "1,6"
+    coords: "0,20"
     name: "&6レジェンド"
     description: "&7NG+2: 永続的な馬術熟練"
     cost: 0
