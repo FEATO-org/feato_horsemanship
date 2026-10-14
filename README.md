@@ -26,8 +26,13 @@ ValhallaMMOがenabledになりDBを初期化した後、独自UnlockCondition �
 
 ## EXPと騎乗
 
+要求EXP曲線は `(%level% + 75 * 2^(%level%/17.0)) + 300`、最大Lv100です。移動だけ・平均8 blocks/sec・EXP補正なしでLv100まで約50時間をバランス調整の目標とします。実際の速度や世話・戦闘・Perkによって変わり、到達時間の保証ではありません。既存ProfileのLv・現在EXP・累計EXP・Perk・NG+を維持し、独自再計算やresetは行いません。次の通常EXP取得から新曲線に従って進行します。既存サーバーでは保存済み `horsemanship.yml` の曲線も手動更新し、完全再起動で反映してください。
+
+`experience.show-gain-feedback` は初期値 `true` で、全ての馬術EXPをValhallaMMO標準のActionBar表示へ渡します。`false` ではEXP付与を維持して表示を抑制します。`/horsemanship reload` で反映できます。Urge表示と重なった場合のActionBar上書きは許容します。CreativeではValhalla標準の `SKILL_ACTION` 制限を維持し、実機検証はSurvivalで行います。既存サーバーで50ブロック単位へ変更する場合は `config.yml` の `experience.movement.batch-distance: 50.0` と `exp-per-batch: 5.0` をセットで更新してください。
+
+
 - 移動EXPは対象mountの最初のPlayer乗客、つまり操縦者のみが得ます。後席には付与しません。
-- 有効距離をUUID単位で蓄積し、初期値100ブロックごとにEXPを一括付与します。ワールド変更、テレポート、対象mount変更、不自然な距離ジャンプは加算しません。
+- 有効距離をUUID単位で蓄積し、初期値50ブロックごとに5 EXPを一括付与します。100ブロックあたり10 EXPの効率は従来と同じです。ワールド変更、テレポート、対象mount変更、不自然な距離ジャンプは加算しません。
 - 馬上戦闘EXPは実際にダメージを与えた本人に少量付与し、初期値2秒の間隔を設けます。DualHorse後席の本人による攻撃も対象です。
 - First Saddle取得前の操縦中速度は初期値-5%、取得後-2%、Rein Sense取得後はペナルティなしです。速度は一時AttributeModifierで適用します。
 

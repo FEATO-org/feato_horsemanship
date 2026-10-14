@@ -7,6 +7,19 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SkillYamlTest {
+    @Test void experienceChangePreservesAllOtherSkillFieldsAndPerks() {
+        var before = YamlConfiguration.loadConfiguration(new InputStreamReader(
+            getClass().getResourceAsStream("/horsemanship-before-experience.yml"), StandardCharsets.UTF_8));
+        var after = YamlConfiguration.loadConfiguration(new InputStreamReader(
+            getClass().getResourceAsStream("/horsemanship.yml"), StandardCharsets.UTF_8));
+        before.set("experience.exp_level_curve", null);
+        after.set("experience.exp_level_curve", null);
+        var oldValues = new java.util.HashMap<>(before.getValues(true));
+        var newValues = new java.util.HashMap<>(after.getValues(true));
+        oldValues.values().removeIf(value -> value instanceof org.bukkit.configuration.ConfigurationSection);
+        newValues.values().removeIf(value -> value instanceof org.bukkit.configuration.ConfigurationSection);
+        assertEquals(oldValues, newValues);
+    }
     @Test void pluginCommandAllowsSkillInspection() {
         var resource = getClass().getClassLoader().getResourceAsStream("plugin.yml");
         assertNotNull(resource);

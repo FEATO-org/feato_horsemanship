@@ -1,7 +1,7 @@
 package jp.feato.horsemanship.integration.valhalla;
 
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
+import jp.feato.horsemanship.config.HorsemanshipConfig;
 import jp.feato.horsemanship.integration.valhalla.skill.HorsemanshipProfile;
 import jp.feato.horsemanship.integration.valhalla.skill.HorsemanshipSkill;
 import me.athlaeos.valhallammo.event.PlayerSkillExperienceGainEvent.ExperienceGainReason;
@@ -13,7 +13,9 @@ import java.util.Collection;
 /** Only Valhalla's public surface is invoked here; no profile internals are accessed. */
 public final class ValhallaAdapter {
     private final HorsemanshipSkill skill;
-    public ValhallaAdapter(Plugin valhalla) {
+    private final HorsemanshipConfig config;
+    public ValhallaAdapter(HorsemanshipConfig config) {
+        this.config = config;
         if (!(SkillRegistry.getSkill("HORSEMANSHIP") instanceof HorsemanshipSkill registered))
             throw new IllegalStateException("HORSEMANSHIP dedicated skill is not registered");
         skill = registered;
@@ -31,7 +33,7 @@ public final class ValhallaAdapter {
         return profile.getUnlockedPerks().contains(perk) || profile.getPermanentlyUnlockedPerks().contains(perk);
     }
     public void addExperience(Player player, double amount) {
-        if (amount > 0) skill.addEXP(player, amount, true, ExperienceGainReason.SKILL_ACTION);
+        if (amount > 0) skill.addEXP(player, amount, !config.flag("experience.show-gain-feedback", true), ExperienceGainReason.SKILL_ACTION);
     }
     private Collection<?> permanentPerks(Player player) {
         return ProfileRegistry.getPersistentProfile(player, PowerProfile.class).getPermanentlyUnlockedPerks();

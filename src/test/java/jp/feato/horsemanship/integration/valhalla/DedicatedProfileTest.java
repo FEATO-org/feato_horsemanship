@@ -25,7 +25,7 @@ class DedicatedProfileTest {
         int condition = source.indexOf("ExclusiveUnlockRegistration.register(dependency)");
         int profile = source.indexOf("ProfileRegistry.registerProfileType");
         int skill = source.indexOf("SkillRegistry.registerSkill(skill)");
-        int adapter = source.indexOf("new ValhallaAdapter(dependency)");
+        int adapter = source.indexOf("new ValhallaAdapter(config)");
         int listener = source.indexOf("registerEvents(");
         assertTrue(duplicate >= 0 && duplicate < condition && condition < profile && profile < skill && skill < adapter && adapter < listener);
         String integration = Files.readString(Path.of("src/main/java/jp/feato/horsemanship/integration/valhalla/ValhallaAdapter.java"));

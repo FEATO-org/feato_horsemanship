@@ -13,9 +13,11 @@ class BalanceMathTest {
             new java.io.InputStreamReader(resource, java.nio.charset.StandardCharsets.UTF_8));
         double amount = config.getDouble("experience.movement.exp-per-batch");
         double cap = config.getDouble("experience.movement.max-multiplier");
-        assertEquals(100.0, config.getDouble("experience.movement.batch-distance"));
-        assertEquals(10.0, amount * BalanceMath.capExperienceMultiplier(1.0, cap), 0.000001);
-        assertEquals(10.5, amount * BalanceMath.capExperienceMultiplier(1.0 + config.getDouble("experience.first-saddle-bonus"), cap), 0.000001);
+        assertTrue(config.getBoolean("experience.show-gain-feedback"));
+        assertEquals(50.0, config.getDouble("experience.movement.batch-distance"));
+        assertEquals(0.1, amount / config.getDouble("experience.movement.batch-distance"), 0.000001);
+        assertEquals(5.0, amount * BalanceMath.capExperienceMultiplier(1.0, cap), 0.000001);
+        assertEquals(5.25, amount * BalanceMath.capExperienceMultiplier(1.0 + config.getDouble("experience.first-saddle-bonus"), cap), 0.000001);
     }
     @Test void trailwiseBonusRespectsTotalExperienceCap() {
         assertFalse(BalanceMath.trailwiseActive(999.9, 1000.0));
