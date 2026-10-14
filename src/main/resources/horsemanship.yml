@@ -9,7 +9,7 @@ levelbar_style: SOLID
 starting_perks: {}
 experience:
   max_level: 100
-  exp_level_curve: '(%level% + 75 * 2^(%level%/7.6)) + 300'
+  exp_level_curve: '(%level% + 75 * 2^(%level%/17.0)) + 300'
   daily_limit: -1
 starting_coordinates: "0,3"
 navigable: true

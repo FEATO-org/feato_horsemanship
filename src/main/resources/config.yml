@@ -2,9 +2,10 @@
 eligible-mounts: [HORSE, SKELETON_HORSE, ZOMBIE_HORSE, DONKEY, MULE]
 debug: false
 experience:
+  show-gain-feedback: true
   movement:
-    batch-distance: 100.0
-    exp-per-batch: 10.0
+    batch-distance: 50.0
+    exp-per-batch: 5.0
     max-distance-per-move: 12.0
     max-multiplier: 1.50
   mounted-combat:

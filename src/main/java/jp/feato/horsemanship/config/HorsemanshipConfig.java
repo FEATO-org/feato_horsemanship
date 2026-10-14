@@ -31,6 +31,7 @@ public final class HorsemanshipConfig {
     public Material trigger() { return trigger; }
     public double number(String path) { return source.getDouble(path); }
     public boolean flag(String path) { return source.getBoolean(path); }
+    public boolean flag(String path, boolean defaultValue) { return source.getBoolean(path, defaultValue); }
     public int integer(String path) { return source.getInt(path); }
     public boolean debug() { return source.getBoolean("debug"); }
     public Logger logger() { return logger; }

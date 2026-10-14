@@ -58,7 +58,7 @@ public final class HorsemanshipPlugin extends JavaPlugin implements TabExecutor 
             if (SkillRegistry.getSkill("HORSEMANSHIP") != skill
                     || skill.getProfileType() != HorsemanshipProfile.class)
                 throw new IllegalStateException("HORSEMANSHIP dedicated Skill/Profile registration failed");
-            valhalla = new ValhallaAdapter(dependency);
+            valhalla = new ValhallaAdapter(config);
             getLogger().info("HORSEMANSHIP registered with dedicated HorsemanshipSkill/HorsemanshipProfile");
         } catch (ReflectiveOperationException | RuntimeException | LinkageError exception) {
             getLogger().log(java.util.logging.Level.SEVERE, "Cannot initialize Valhalla integration", exception);
